@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FitFamily</title>
+<style>
+:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mu:#6b7488;--pr:#16a34a;--pr2:#22c55e;--ac:#f97316;--bd:#e6e9f2;--sh:0 6px 24px rgba(30,40,80,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--card:#1a2133;--tx:#eef1f8;--mu:#9aa5bd;--bd:#2a3350;--sh:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1420;--card:#1a2133;--tx:#eef1f8;--mu:#9aa5bd;--bd:#2a3350;--sh:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}body{background:var(--bg);color:var(--tx);font:18px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:90px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
+main{max-width:680px;margin:0 auto;padding:16px}
+h1{font-size:26px;margin:4px 0}h2{font-size:21px;margin:18px 0 8px}h3{font-size:18px;margin:0}
+.card{background:var(--card);border-radius:20px;padding:16px;margin:12px 0;box-shadow:var(--sh);animation:up .5s both}
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.hero{background:linear-gradient(135deg,#16a34a,#0ea5e9);color:#fff}
+.mu{color:var(--mu);font-size:15px}.hero .mu{color:#e6fff0}
+.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+button,.btn{font:inherit;font-weight:700;border:0;border-radius:16px;padding:14px 18px;background:var(--pr);color:#fff;cursor:pointer;transition:transform .15s,box-shadow .15s;min-height:50px}
+button:active{transform:scale(.95)}button.o{background:transparent;color:var(--pr);border:2px solid var(--pr)}button.g{background:var(--bd);color:var(--tx)}button.r{background:#ef4444}button.w{background:var(--ac)}
+input,select{font:inherit;width:100%;padding:13px;border-radius:14px;border:2px solid var(--bd);background:var(--bg);color:var(--tx);min-height:50px}
+label{display:block;font-weight:600;margin:10px 0 4px;font-size:16px}
+.mem{text-align:center;cursor:pointer;transition:transform .2s}.mem:hover{transform:translateY(-4px)}.mem:active{transform:scale(.96)}
+.av{font-size:44px;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin:0 auto 6px;background:var(--bd)}
+.pill{display:inline-block;padding:4px 12px;border-radius:99px;font-size:14px;font-weight:700;background:var(--bd)}
+.ok{background:#dcfce7;color:#166534}.warn{background:#ffedd5;color:#9a3412}.bad{background:#fee2e2;color:#991b1b}
+.bar{height:12px;border-radius:9px;background:var(--bd);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pr),var(--pr2));border-radius:9px;transition:width 1s cubic-bezier(.2,.8,.2,1);width:0}
+nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 20px rgba(0,0,0,.1);z-index:20}
+nav button{background:none;color:var(--mu);padding:6px 8px;font-size:12px;display:flex;flex-direction:column;align-items:center;min-height:56px;flex:1;border-radius:12px}
+nav button b{font-size:24px;line-height:1}nav button.on{color:var(--pr);background:var(--bd)}
+.q{font-style:italic;font-size:19px;animation:fade .8s}@keyframes fade{from{opacity:0}to{opacity:1}}
+.ex{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;border:2px solid var(--bd);margin:8px 0;cursor:pointer;transition:.25s}
+.ex.d{background:#dcfce7;border-color:#22c55e;color:#14532d}.ex.d .t{text-decoration:line-through}
+.ck{width:34px;height:34px;border-radius:50%;border:3px solid var(--bd);display:grid;place-items:center;flex:none;transition:.3s}.ex.d .ck{background:#22c55e;border-color:#22c55e;color:#fff;transform:rotate(360deg)}
+.fi{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--bd)}
+.big{font-size:38px;font-weight:800;line-height:1}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:grid;place-items:end center;animation:fade .2s}
+.modal>div{background:var(--card);width:100%;max-width:560px;border-radius:24px 24px 0 0;padding:20px;max-height:90vh;overflow:auto;animation:up .35s}
+.cf{position:fixed;top:-20px;font-size:26px;z-index:99;pointer-events:none;animation:fall 2.2s ease-in forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:#16a34a;color:#fff;padding:12px 20px;border-radius:99px;z-index:99;font-weight:700;animation:up .4s;max-width:92%;text-align:center}
+.chat{background:var(--bg);border-radius:16px;padding:12px;margin:8px 0}.me{background:#dcfce7;color:#14532d;margin-left:30px}
+.scroll{overflow-x:auto}.chip{padding:8px 14px;border-radius:99px;background:var(--bd);font-weight:600;font-size:15px;cursor:pointer;white-space:nowrap;border:0;min-height:40px}
+.chip.on{background:var(--pr);color:#fff}
+</style></head><body><main id="app"></main><nav id="nav"></nav>
+<script src="config.js"></script>
+<script>
+const $=s=>document.querySelector(s);
+const pad=n=>String(n).padStart(2,'0');
+const dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>dk(new Date());
+const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
+let S={members:{},logs:{}},db=null,isAdmin=true,shared=false,me=LS.get('ff_me'),tab='home',ready=false,chat=[],foodQ='',foodCat='all',qi=0;
+const Q=["Small steps every day lead to big changes.","Your body hears everything your mind says. Be kind, be strong.","We are not on a diet. We are building a family habit.","Every walk, every salad, every glass of water counts.","Do it for the people who sit at your dinner table.","Progress, not perfection.","The best time to start was yesterday. The next best is now.","A healthy family is the greatest wealth.","Tired? Do it anyway. Future you says thank you.","Together we sweat, together we shine.","Don’t wait for Monday. Start with this meal.","Strong parents, strong children, strong family.","Age is just a number. Move every day!","One more glass of water. One more step. You can do it!","Discipline is choosing what you want most over what you want now."];
+const FOODS=[["Paneer","100 g",265,18,1.2,20],["Dal (cooked)","1 katori",150,9,25,2],["Moong sprouts","1 bowl",60,6,10,.4],["Tofu","100 g",76,8,2,5],["Soya chunks","30 g dry",104,16,10,.5],["Curd (dahi)","1 bowl",90,5,7,4],["Milk","1 glass",120,6,10,6],["Buttermilk (chaas)","1 glass",40,2,5,1],["Chana boiled","1 bowl",164,9,27,2.6],["Rajma","1 bowl",190,12,33,1],["Besan chilla","1 piece",120,6,15,4],["Roti (phulka)","1 piece",100,3,18,2],["Brown rice","1 cup",215,5,45,1.8],["White rice","1 cup",205,4,45,.4],["Oats","40 g",150,5,27,3],["Poha","1 plate",250,5,45,6],["Upma","1 plate",230,5,35,8],["Idli","2 pieces",120,4,25,.5],["Dosa (plain)","1 piece",130,3,22,3],["Mixed sabzi","1 bowl",90,3,12,4],["Salad","1 bowl",40,2,8,.3],["Banana","1 medium",105,1.3,27,.4],["Apple","1 medium",95,.5,25,.3],["Almonds","10 pieces",70,2.6,2.5,6],["Peanuts","30 g",170,7.5,5,14],["Peanut butter","1 tbsp",95,4,3,8],["Chai with sugar","1 cup",70,2,10,2.5],["Ghee","1 tsp",45,0,0,5],["Samosa / kachori","1 piece",250,6,28,14,1],["Pizza","1 slice",285,12,36,10,1],["Sweets (mithai)","1 piece",200,3,30,8,1],["Cold drink","1 glass",140,0,35,0,1],["Namkeen / chips","30 g",160,3,15,10,1],["Fried puri / bhatura","1 piece",190,3,22,10,1]];
+const HIPRO=["Soya chunks","Paneer","Tofu","Dal (cooked)","Rajma","Chana boiled","Moong sprouts","Curd (dahi)","Besan chilla","Milk"];
+const WK={
+ young:[["Brisk walk","20 min","Talk-test pace: you can speak but not sing"],["Squats","3 x 12","Sit back like on a chair"],["Push-ups (knees ok)","3 x 8","Wall push-ups are fine to begin"],["Plank","3 x 20 sec","Keep your back straight"],["Jumping jacks","3 x 20","Or march in place"],["Stretching","5 min","Slow deep breaths"]],
+ mid:[["Brisk walk","25 min","Wear comfortable shoes"],["Chair squats","3 x 10","Touch the chair and stand up"],["Wall push-ups","3 x 10","Stand an arm length from the wall"],["Glute bridge","3 x 12","Lie down, lift hips slowly"],["Marching in place","3 x 1 min","Lift knees to a comfortable height"],["Full body stretch","5 min","Never force a stretch"]],
+ senior:[["Easy walk","20 min","Split into 2 x 10 min if tired"],["Sit-to-stand from chair","3 x 8","Use arms for support if needed"],["Seated leg raises","2 x 10","Keep your back supported"],["Arm raises (light bottle)","2 x 10","Use a 500 ml water bottle"],["Ankle and shoulder circles","2 min","Slow and gentle"],["Deep breathing / pranayama","5 min","Sit comfortably, relax"]],
+ kid:[["Play outside","45 min","Cycling, running, any sport"],["Skipping rope","3 x 1 min","Fun with the family"],["Dance together","10 min","Put on music!"],["Stretching","5 min","Touch your toes"]]};
+const SEXX={F:[["Glute bridge","3 x 15","Squeeze at the top"],["Side leg raises","2 x 12 each","Strengthen hips"]],M:[["Push-ups","3 x 10","Chest to near floor"],["Lunges","3 x 10 each","Step forward, knee over ankle"]]};
+const WEEK=["Rest-active: easy walk + stretch","Full body","Walk + core","Full body","Walk + core","Fun day: dance or sport","Rest day: stretch and relax"];
+function plan(m){const a=+m.age;let b=a<14?'kid':a<40?'young':a<60?'mid':'senior';let p=WK[b].slice();if(b!=='kid'&&b!=='senior'){p=p.slice(0,4).concat(SEXX[m.sex]||[]).concat(p.slice(-1))}return{b,p}}
+// ---------- calculations ----------
+const bmi=(w,h)=>w/((h/100)**2);
+function cat(b){return b<18.5?['Underweight','warn']:b<23?['Healthy','ok']:b<25?['Overweight','warn']:['Obese','bad']}
+function logsOf(id){return Object.values(S.logs).filter(l=>l.mid===id).sort((a,b)=>a.date<b.date?-1:1)}
+function stats(m){const L=logsOf(m.id),W=L.filter(l=>l.w);const cur=W.length?W[W.length-1].w:+m.w0;const lost=+m.w0-cur;const tot=+m.w0-+m.gw;const pr=tot>0?Math.max(0,Math.min(100,lost/tot*100)):0;
+ let st=0;const d=new Date();const has=new Set(L.filter(l=>l.w||(l.meals||[]).length||(l.ex||[]).length).map(l=>l.date));if(!has.has(dk(d)))d.setDate(d.getDate()-1);while(has.has(dk(d))){st++;d.setDate(d.getDate()-1)}
+ const b=bmi(cur,m.h),a=+m.age,kid=a<18;
+ const bmr=10*cur+6.25*m.h-5*a+(m.sex==='M'?5:-161);const tdee=bmr*1.35;let cal=kid||b<23?tdee:tdee-450;cal=Math.max(cal,kid?1400:(m.sex==='M'?1500:1200));
+ const pro=Math.round(Math.min(cur,+m.gw||cur)*(a>=60?1.2:1));
+ const pts=Math.round(lost*20+L.length*2+st*5+L.reduce((s,l)=>s+(l.ex||[]).length,0));
+ return{L,W,cur,lost,pr,st,b,cat:cat(b),cal:Math.round(cal),pro,pts,lo:Math.round(18.5*(m.h/100)**2),hi:Math.round(22.9*(m.h/100)**2),weeks:Math.max(0,Math.ceil((cur-m.gw)/.5)),kid}}
+const getLog=(id,d)=>S.logs[id+'_'+d]||{id:id+'_'+d,mid:id,date:d,w:0,water:0,meals:[],ex:[]};
+function tot(l){return(l.meals||[]).reduce((t,x)=>({cal:t.cal+x.cal,p:t.p+x.p,c:t.c+x.c,f:t.f+x.f}),{cal:0,p:0,c:0,f:0})}
+// ---------- storage ----------
+const FB=((window.FF_CONFIG&&window.FF_CONFIG.firebaseUrl)||'').replace(/\/$/,'');let fam=LS.get('ff_fam')||'';
+const url=p=>FB+'/families/'+fam+(p?'/'+p:'')+'.json';
+async function fput(p,v){if(!shared)return;try{await fetch(url(p),{method:v===null?'DELETE':'PUT',body:v===null?undefined:JSON.stringify(v)})}catch(e){toast('No internet. Saved on this phone only.')}}
+async function saveLog(l){S.logs[l.id]=l;persist();fput('logs/'+l.id,l)}
+async function saveMember(m){S.members[m.id]=m;persist();fput('members/'+m.id,m)}
+async function delMember(id){delete S.members[id];const ks=Object.keys(S.logs).filter(k=>S.logs[k].mid===id);ks.forEach(k=>{delete S.logs[k];fput('logs/'+k,null)});persist();fput('members/'+id,null)}
+function persist(){if(!shared)LS.set('ff_data',JSON.stringify(S))}
+async function pull(){if(!shared)return;try{const r=await fetch(url(''));const d=(await r.json())||{};const n={members:d.members||{},logs:d.logs||{}};if(JSON.stringify(n)!==JSON.stringify(S)){S=n;if(me&&!S.members[me]&&Object.keys(S.members).length)me=null;if(!document.querySelector('.modal')&&!/INPUT|SELECT/.test((document.activeElement||{}).tagName||''))draw('keep')}}catch(e){}}
+function vSetup(){return`<div class="card hero"><h1>💪 FitFamily</h1><div class="q">Let’s change our family together</div></div><div class="card"><h2>Step 1: Family code</h2><p class="mu">Admin: make a secret code (at least 6 letters or numbers) and tap Create. Everyone else types the same code and taps Join.</p><input id="fc" placeholder="Family code, e.g. patel2026"><div class="row" style="margin-top:12px"><button onclick="setupFam(1)">👑 Create (admin)</button><button class="o" onclick="setupFam(0)">Join family</button></div></div>`}
+function setupFam(c){const v=($('#fc').value||'').trim().toLowerCase().replace(/[^a-z0-9]/g,'');if(v.length<6)return toast('Code needs at least 6 letters or numbers');LS.set('ff_fam',v);LS.set('ff_admin',c?'1':'0');location.reload()}
+// ---------- helpers ----------
+function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
+function confetti(){const c=['🎉','⭐','💪','🥗','🔥','🏆','✨'];for(let i=0;i<28;i++){const e=document.createElement('div');e.className='cf';e.textContent=c[i%c.length];e.style.left=Math.random()*100+'vw';e.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}}
+function ring(p,size=120){const r=size/2-10,c=2*Math.PI*r;return`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="10"/><circle class="rg" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" data-t="${c*(1-p/100)}" style="transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1);transform:rotate(-90deg);transform-origin:center"/><text x="50%" y="54%" text-anchor="middle" fill="#fff" font-size="${size/5}" font-weight="800">${Math.round(p)}%</text></svg>`}
+const M=()=>S.members[me];
+// ---------- views ----------
+function vHome(){const ms=Object.values(S.members);const rank=ms.map(m=>({m,s:stats(m)})).sort((a,b)=>b.s.pts-a.s.pts);const fl=rank.reduce((t,x)=>t+Math.max(0,x.s.lost),0);
+ let h=`<div class="card hero"><h1>💪 FitFamily</h1><div class="q" id="quote">“${Q[qi%Q.length]}”</div><div class="mu" style="margin-top:6px">Let’s change our family together</div></div>`;
+ if(!ms.length)return h+`<div class="card"><h2>Welcome! 👋</h2><p>Start by adding yourself and each family member. It takes 1 minute each.</p>${isAdmin?`<button onclick="editM()">➕ Add first member</button>`:'<p class="mu">Ask the family admin to add you.</p>'}</div>`;
+ h+=`<div class="card"><div class="row sp"><div><div class="mu">Family total weight lost</div><div class="big" style="color:var(--pr)">${fl.toFixed(1)} kg</div></div><div style="font-size:44px">🏅</div></div></div>`;
+ h+=`<h2>Who are you? Tap your photo</h2><div class="grid">`+rank.map(({m,s},i)=>`<div class="card mem" style="animation-delay:${i*.08}s" onclick="pick('${m.id}')"><div class="av">${m.e}</div><h3>${m.name}${m.id===me?' ✓':''}</h3><div class="mu">${i===0?'👑 ':''}${s.pts} points · 🔥${s.st} day${s.st==1?'':'s'}</div><div class="bar" style="margin:8px 0"><i data-w="${s.pr}"></i></div><span class="pill ${s.cat[1]}">BMI ${s.b.toFixed(1)} · ${s.cat[0]}</span></div>`).join('')+`</div>`;
+ if(isAdmin)h+=`<div class="card"><h3>👑 Admin panel</h3><p class="mu">Add, edit or remove members. Others can view everyone’s progress.</p><div class="row"><button onclick="editM()">➕ Add member</button>${me&&M()?`<button class="g" onclick="editM('${me}')">✏️ Edit ${M().name}</button>`:''}</div>${shared?'<p class="mu">Family code: <b>'+fam+'</b>. Give this code to everyone so all phones sync.</p>':'<p class="mu">Offline mode: data is only on this phone.</p>'}</div>`;
+ return h}
+function vToday(){const m=M();if(!m)return needMe();const s=stats(m),l=getLog(m.id,today()),t=tot(l);
+ return`<div class="card hero"><div class="row sp"><div><h1>${m.e} Hi ${m.name}!</h1><div class="mu">Goal: ${m.w0} → ${m.gw} kg · ${s.weeks?`about ${s.weeks} weeks`:'goal reached! 🎉'}</div><div style="margin-top:8px">🔥 ${s.st} day streak</div></div>${ring(s.pr)}</div></div>
+ <div class="card"><h3>⚖️ Today’s weight</h3><div class="row" style="margin-top:8px"><input id="wt" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="${l.w||''}" style="flex:1"><button onclick="saveW()">Save</button></div><div class="mu">Best done in the morning, after the toilet, before food.</div></div>
+ <div class="card"><h3>💧 Water: ${l.water||0} / 8 glasses</h3><div class="bar" style="margin:10px 0"><i data-w="${Math.min(100,(l.water||0)/8*100)}"></i></div><div class="row"><button onclick="water(1)">🥛 +1 glass</button><button class="g" onclick="water(-1)">−1</button></div></div>
+ <div class="card"><h3>🍽️ Food today</h3><div class="row sp" style="margin:8px 0"><span>${Math.round(t.cal)} / ${s.cal} kcal</span><span>Protein ${Math.round(t.p)} / ${s.pro} g</span></div><div class="bar"><i data-w="${Math.min(100,t.cal/s.cal*100)}"></i></div><button style="margin-top:10px" onclick="go('food')">➕ Add food</button></div>
+ <div class="card"><h3>🏋️ Workout</h3><p class="mu">${l.ex.length} of ${plan(m).p.length} done today</p><button onclick="go('work')">Start workout</button></div>
+ <div class="card"><h3>📊 BMI</h3><div class="big">${s.b.toFixed(1)} <span class="pill ${s.cat[1]}" style="font-size:16px">${s.cat[0]}</span></div><p class="mu">Healthy weight for your height (${m.h} cm): ${s.lo}–${s.hi} kg. India (Asian) BMI range: 18.5–22.9 is healthy.</p></div>`}
+function needMe(){return`<div class="card"><h2>Please choose who you are</h2><button onclick="go('home')">Go to family</button></div>`}
+function vFood(){const m=M();if(!m)return needMe();const l=getLog(m.id,today()),t=tot(l),s=stats(m);
+ const cats=[['all','All'],['pro','💪 High protein'],['junk','🚫 Junk']];
+ const list=FOODS.filter(f=>f[0].toLowerCase().includes(foodQ.toLowerCase())&&(foodCat==='all'||(foodCat==='junk'?f[6]:HIPRO.includes(f[0]))));
+ return`<h1>🍽️ Food</h1><div class="card"><div class="grid"><div><div class="mu">Calories</div><b>${Math.round(t.cal)}</b>/${s.cal}</div><div><div class="mu">Protein</div><b>${Math.round(t.p)}</b>/${s.pro} g</div><div><div class="mu">Carbs</div><b>${Math.round(t.c)}</b> g</div><div><div class="mu">Fat</div><b>${Math.round(t.f)}</b> g</div></div></div>
+ ${l.meals.length?`<div class="card"><h3>Eaten today</h3>${l.meals.map((x,i)=>`<div class="fi"><span>${x.n} ×${x.q}<br><span class="mu">${Math.round(x.cal)} kcal · P ${x.p.toFixed(0)} · C ${x.c.toFixed(0)}</span></span><button class="g" onclick="delMeal(${i})">✕</button></div>`).join('')}</div>`:''}
+ <div class="card"><h3>🥗 Vegetarian food list</h3><input placeholder="🔍 Search food" value="${foodQ}" oninput="foodQ=this.value;draw('keep')" id="fq" style="margin:8px 0"><div class="row scroll" style="flex-wrap:nowrap;margin-bottom:6px">${cats.map(c=>`<button class="chip ${foodCat===c[0]?'on':''}" onclick="foodCat='${c[0]}';draw()">${c[1]}</button>`).join('')}</div>
+ ${list.map(f=>`<div class="fi"><span>${f[6]?'🚫 ':''}<b>${f[0]}</b> <span class="mu">(${f[1]})</span><br><span class="mu">${f[2]} kcal · P ${f[3]}g · C ${f[4]}g · F ${f[5]}g</span></span><button onclick="addMeal('${f[0]}')">+</button></div>`).join('')||'<p class="mu">Nothing found</p>'}</div>`}
+function vWork(){const m=M();if(!m)return needMe();const{b,p}=plan(m),l=getLog(m.id,today()),done=l.ex.length,wd=new Date().getDay();
+ const lab={kid:'Kids fun plan',young:'Active plan',mid:'Gentle strength plan',senior:'Safe and easy plan'}[b];
+ return`<h1>🏋️ Workout</h1><div class="card hero"><h3>${lab} for ${m.name}</h3><div class="mu">Age ${m.age} · ${m.sex==='F'?'Women':'Men'} · Today: ${WEEK[wd]}</div><div class="bar" style="margin-top:10px;background:rgba(255,255,255,.3)"><i data-w="${done/p.length*100}" style="background:#fff"></i></div></div>
+ ${p.map((e,i)=>`<div class="ex ${l.ex.includes(i)?'d':''}" onclick="tick(${i})"><div class="ck">✓</div><div><div class="t"><b>${e[0]}</b> — ${e[1]}</div><div class="mu">${e[2]}</div></div></div>`).join('')}
+ <div class="card mu">⚠️ Warm up first. Stop if you feel pain, dizziness or chest discomfort. ${+m.age>=50?'Please check with your doctor before starting a new exercise plan.':''}</div>`}
+function chartSvg(m){const W=stats(m).W.slice(-30);if(W.length<2)return'<p class="mu">Log weight on 2 or more days to see your graph 📈</p>';const v=W.map(x=>x.w),mn=Math.min(...v,+m.gw)-1,mx=Math.max(...v)+1,w=320,h=140;const pts=W.map((x,i)=>[10+i*(w-20)/(W.length-1),h-10-(x.w-mn)/(mx-mn)*(h-20)]);const gy=h-10-(m.gw-mn)/(mx-mn)*(h-20);
+ return`<svg viewBox="0 0 ${w} ${h}" style="width:100%"><line x1="0" x2="${w}" y1="${gy}" y2="${gy}" stroke="#f97316" stroke-dasharray="5 4"/><text x="${w-4}" y="${gy-4}" text-anchor="end" font-size="10" fill="#f97316">goal ${m.gw}</text><polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1.6s forwards"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#16a34a"/>`).join('')}</svg><style>@keyframes dr{to{stroke-dashoffset:0}}</style>`}
+function vProg(){const ms=Object.values(S.members);if(!ms.length)return needMe();const v=S.members[prog]||M()||ms[0];prog=v.id;const s=stats(v);
+ return`<h1>📈 Progress</h1><div class="row scroll" style="flex-wrap:nowrap">${ms.map(m=>`<button class="chip ${m.id===v.id?'on':''}" onclick="prog='${m.id}';draw()">${m.e} ${m.name}</button>`).join('')}</div>
+ <div class="card"><div class="grid"><div><div class="mu">Start</div><div class="big">${v.w0}</div></div><div><div class="mu">Now</div><div class="big">${s.cur}</div></div><div><div class="mu">Goal</div><div class="big">${v.gw}</div></div><div><div class="mu">Lost</div><div class="big" style="color:var(--pr)">${s.lost.toFixed(1)}</div></div></div><div class="bar" style="margin-top:14px"><i data-w="${s.pr}"></i></div><p class="mu">${Math.round(s.pr)}% of goal · BMI ${s.b.toFixed(1)} (${s.cat[0]})</p></div>
+ <div class="card"><h3>Weight (last 30 days)</h3>${chartSvg(v)}</div>
+ <div class="card"><h3>🏆 Family leaderboard</h3>${ms.map(m=>({m,s:stats(m)})).sort((a,b)=>b.s.pts-a.s.pts).map((x,i)=>`<div class="fi"><span>${['🥇','🥈','🥉'][i]||i+1+'.'} ${x.m.e} ${x.m.name}</span><b>${x.s.pts} pts</b></div>`).join('')}<p class="mu">Points: weight lost, daily logging, streaks and workouts.</p></div>
+ <div class="card"><h3>📋 Overall family analysis</h3>${famAnalysis()}</div>`}
+let prog='';
+function famAnalysis(){const ms=Object.values(S.members),st=ms.map(m=>stats(m));const need=st.filter(s=>!s.kid&&s.b>=23).length;const tl=st.reduce((t,s)=>t+Math.max(0,s.lost),0);const act=st.filter(s=>s.st>=3).length;
+ return`<p>👨‍👩‍👧 ${ms.length} members · ${need} need weight loss · ${tl.toFixed(1)} kg lost together.</p><p>🔥 ${act} of ${ms.length} members have a 3+ day streak.</p><p>${need?'Family goal: cook one healthy meal together, and take an evening family walk of 20 minutes.':'Great! Keep the healthy habits going together.'}</p>`}
+// ---------- AI coach (built in, rule based, no internet) ----------
+function coach(m){const s=stats(m),l=getLog(m.id,today()),t=tot(l),T=[];const a=+m.age;
+ if(s.kid)T.push('🧒 For children, we focus on healthy food and play, not weight loss. Please talk to your child’s doctor for a plan.');
+ else if(s.b>=25)T.push(`Your BMI is ${s.b.toFixed(1)}. Aim to lose 0.5 kg per week; that is safe and lasts. Reach ${s.lo+3}–${s.hi} kg step by step.`);
+ else if(s.b>=23)T.push(`You are slightly above the ideal range. Losing ${Math.max(1,Math.round(s.cur-s.hi))} kg gets you to a healthy BMI.`);
+ else if(s.b<18.5)T.push('Your BMI is low. Eat more protein and healthy calories; do not diet.');
+ else T.push('Your BMI is in the healthy range. Focus on strength and stamina!');
+ const W=s.W.slice(-14);if(W.length>=4){const d=W[W.length-1].w-W[0].w;T.push(d<-.3?`📉 Great trend! You lost ${(-d).toFixed(1)} kg recently. Keep going.`:d>.3?'📈 Weight went up lately. Check sweets, fried food and evening snacks. Don’t worry, it can reverse quickly.':'➡️ Weight is steady. Add 10 more minutes of walking daily to restart progress.')}else T.push('Log your weight daily for a week and I can analyse your trend.');
+ if(l.meals.length){T.push(t.p<s.pro*.6?`🥜 Protein is low today (${Math.round(t.p)}/${s.pro} g). Add dal, paneer, curd, soya chunks or sprouts.`:'💪 Protein looks good today!');
+  const j=l.meals.filter(x=>x.junk).length;if(j)T.push(`🚫 ${j} junk item${j>1?'s':''} today. Swap with fruit or roasted chana tomorrow.`);
+  if(t.cal>s.cal)T.push('You are over your calorie target today. Make the next meal a light salad and dal.')}
+ else T.push('📝 Log what you eat today. Writing it down alone improves results.');
+ if((l.water||0)<5)T.push('💧 Drink more water. A glass before each meal reduces hunger.');
+ if(!l.ex.length)T.push('🏋️ You have not exercised today. Even 10 minutes of walking counts!');
+ if(a>=60)T.push('🧓 Protein and gentle strength exercises protect muscles and bones. Always keep a chair nearby for support.');
+ if(m.sex==='F'&&a>=40)T.push('Strength work and calcium (milk, curd, ragi) help protect bones.');
+ if(m.sex==='M'&&a>=40)T.push('Reduce salt and fried foods to protect your heart. Walk after dinner.');
+ return T}
+const KB=[[/protein/,'Vegetarian protein: soya chunks (16 g/30 g), paneer (18 g/100 g), dal, rajma, chana, tofu, curd, sprouts, milk. Add one protein item to every meal.'],[/rice|roti|chapati|carb/,'Don’t quit rice or roti. Eat smaller portions: 2 rotis or 1 cup rice, with double dal and sabzi. Choose brown rice or millet when you can.'],[/sweet|mithai|sugar|chocolate|craving/,'Cravings are normal. Try a fruit, a few dates or a small piece of jaggery after meals. Keep sweets for weekends only.'],[/plateau|stuck|not losing|stopped/,'Plateaus are normal. Sleep 7–8 hours, increase walking by 10 minutes, cut evening snacks, and be patient for 2 weeks.'],[/motivat|lazy|tired|give up|bored/,'Remember why you started: a healthy family. '+'Do just 5 minutes today. Starting is the hardest part, and the family is cheering for you!'],[/water/,'Aim for 8 glasses daily. Water before meals reduces hunger.'],[/sleep/,'Poor sleep increases hunger. Aim for 7–8 hours and avoid phone 30 minutes before bed.'],[/breakfast/,'Healthy breakfast: besan chilla, moong sprouts, oats, idli with sambar, or poha with peanuts plus a glass of milk.'],[/snack|hungry/,'Smart snacks: roasted chana, fruit, buttermilk, 10 almonds, or a bowl of sprouts.'],[/dinner/,'Keep dinner light and early: dal, 1–2 roti, sabzi and salad. Eat 2–3 hours before sleep, then walk 10 minutes.'],[/bmi/,'BMI = weight (kg) ÷ height (m)². For Indians: 18.5–22.9 is healthy, 23–24.9 overweight, 25 or above obese.'],[/walk|exercise|workout/,'Start with a 20 minute daily walk. Then add the exercises in the Workout tab. Consistency matters more than intensity.']];
+function vCoach(){const m=M();if(!m)return needMe();
+ return`<h1>🤖 AI Coach</h1><div class="card hero"><div class="mu">Built in. Works offline. Your data stays on your device.</div><h3>Today’s advice for ${m.name}</h3></div>${coach(m).map((t,i)=>`<div class="card" style="animation-delay:${i*.1}s">${t}</div>`).join('')}
+ <div class="card"><h3>Ask the coach</h3><div id="chat">${chat.map(c=>`<div class="chat ${c.u?'me':''}">${c.t}</div>`).join('')}</div><div class="row scroll" style="flex-wrap:nowrap;margin:8px 0">${['protein','sweet cravings','dinner','not losing weight','motivation'].map(x=>`<button class="chip" onclick="ask('${x}')">${x}</button>`).join('')}</div><div class="row"><input id="ci" placeholder="Type your question" style="flex:1"><button onclick="ask()">Send</button></div></div>`}
+// ---------- actions ----------
+function ask(x){const i=$('#ci');const q=(x||i.value).trim();if(!q)return;const hit=KB.find(k=>k[0].test(q.toLowerCase()));chat.push({u:1,t:q},{t:hit?hit[1]:'I can help with protein, food, snacks, dinner, cravings, BMI, water, sleep, exercise, plateaus and motivation. Please ask about one of these.'});draw('keep')}
+function pick(id){me=id;LS.set('ff_me',id);toast('Welcome, '+S.members[id].name+'! 🎉');go('today')}
+function go(t){tab=t;qi++;draw();scrollTo({top:0,behavior:'smooth'})}
+function saveW(){const v=parseFloat($('#wt').value);if(!v||v<20||v>250)return toast('Please enter a valid weight');const l=getLog(me,today()),first=!l.w;const prev=stats(M()).cur;l.w=v;saveLog(l);if(v<prev){confetti();toast('Down '+(prev-v).toFixed(1)+' kg! Amazing! 🎉')}else toast(Q[Math.floor(Math.random()*Q.length)]);draw('keep')}
+function water(n){const l=getLog(me,today());l.water=Math.max(0,(l.water||0)+n);saveLog(l);if(l.water===8){confetti();toast('Water goal done! 💧')}draw('keep')}
+function addMeal(n){const f=FOODS.find(x=>x[0]===n),l=getLog(me,today());l.meals.push({n:f[0],q:1,cal:f[2],p:f[3],c:f[4],f:f[5],junk:f[6]||0});saveLog(l);toast(f[6]?'Added. Try a lighter choice next time 🙂':'Added ✓ '+f[0]);draw('keep')}
+function delMeal(i){const l=getLog(me,today());l.meals.splice(i,1);saveLog(l);draw('keep')}
+function tick(i){const l=getLog(me,today()),k=l.ex.indexOf(i);k<0?l.ex.push(i):l.ex.splice(k,1);saveLog(l);if(l.ex.length===plan(M()).p.length){confetti();toast('Workout complete! You are a champion! 🏆')}draw('keep')}
+const EM=['👨','👩','👴','👵','🧑','👦','👧','🧔','👱‍♀️','🦸'];
+function editM(id){const m=id?S.members[id]:{e:'🙂',sex:'M',age:'',h:'',w0:'',gw:''};
+ const d=document.createElement('div');d.className='modal';d.onclick=e=>{if(e.target===d)d.remove()};
+ d.innerHTML=`<div><h2>${id?'Edit':'Add'} member</h2><label>Photo / emoji</label><div class="row">${EM.map(e=>`<button class="chip ${e===m.e?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on');window._e='${e}'" style="font-size:26px">${e}</button>`).join('')}</div>
+ <label>Name</label><input id="fn" value="${m.name||''}"><div class="grid"><div><label>Age</label><input id="fa" type="number" inputmode="numeric" value="${m.age}"></div><div><label>Gender</label><select id="fs"><option value="M" ${m.sex==='M'?'selected':''}>Male</option><option value="F" ${m.sex==='F'?'selected':''}>Female</option></select></div><div><label>Height (cm)</label><input id="fh" type="number" inputmode="numeric" value="${m.h}"></div><div><label>Weight now (kg)</label><input id="fw" type="number" step="0.1" inputmode="decimal" value="${m.w0}"></div></div><label>Goal weight (kg)</label><input id="fg" type="number" step="0.1" inputmode="decimal" value="${m.gw}"><p class="mu">Not sure? Leave it empty and we will pick a healthy goal.</p>
+ <div class="row" style="margin-top:12px"><button onclick="submitM('${id||''}')">Save</button><button class="g" onclick="this.closest('.modal').remove()">Cancel</button>${id?`<button class="r" onclick="if(confirm('Remove this member and all their data?')){delMember('${id}');this.closest('.modal').remove();if(me==='${id}')me=null;draw()}">Delete</button>`:''}</div></div>`;
+ window._e=m.e;document.body.appendChild(d)}
+function submitM(id){const g=x=>$('#'+x).value;const n=g('fn').trim(),a=+g('fa'),h=+g('fh'),w=+g('fw');if(!n||!a||!h||!w||h<80||h>230)return toast('Please fill name, age, height and weight');
+ let gw=+g('fg');if(!gw)gw=Math.min(w,Math.round(22.9*(h/100)**2));const old=id?S.members[id]:null;
+ const m={id:id||'m'+Date.now().toString(36),name:n,age:a,sex:g('fs'),h,w0:old?old.w0:w,gw,e:window._e};if(old&&w!==old.w0&&!logsOf(id).length)m.w0=w;
+ saveMember(m);document.querySelector('.modal').remove();if(!me){me=m.id;LS.set('ff_me',me)}confetti();toast('Saved ✓');draw()}
+// ---------- render ----------
+function draw(keep){const y=scrollY;const a=document.activeElement&&document.activeElement.id;const v=(FB&&!fam)?vSetup():{home:vHome,today:vToday,food:vFood,work:vWork,prog:vProg,coach:vCoach}[tab]();$('#app').innerHTML=v;
+ $('#nav').innerHTML=[['home','🏠','Family'],['today','📅','Today'],['food','🥗','Food'],['work','🏋️','Workout'],['prog','📈','Progress'],['coach','🤖','Coach']].map(n=>`<button class="${tab===n[0]?'on':''}" onclick="go('${n[0]}')"><b>${n[1]}</b>${n[2]}</button>`).join('');
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.bar i').forEach(e=>e.style.width=(+e.dataset.w||0)+'%');document.querySelectorAll('.rg').forEach(e=>e.style.strokeDashoffset=e.dataset.t)}));
+ if(keep){scrollTo(0,y);if(a){const e=document.getElementById(a);if(e){e.focus();if(e.setSelectionRange&&e.type==='search'||a==='fq')e.setSelectionRange(e.value.length,e.value.length)}}}}
+async function init(){shared=!!(FB&&fam);isAdmin=!shared||LS.get('ff_admin')==='1';if(!shared){try{const d=LS.get('ff_data');if(d)S=JSON.parse(d)}catch(e){}}
+ draw();if(shared){pull();setInterval(pull,8000)}
+ setInterval(()=>{const q=$('#quote');if(q){qi++;q.style.opacity=0;setTimeout(()=>{q.textContent='“'+Q[qi%Q.length]+'”';q.style.opacity=1},400)}},9000)}
+init();
+</script></body></html>
