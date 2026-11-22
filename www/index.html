@@ -54,9 +54,11 @@ nav button b{font-size:22px;line-height:1;transition:transform .45s cubic-bezier
 <script src="config.js"></script>
 <script>
 const $=s=>document.querySelector(s);
+const now=()=>new Date(new Date().toLocaleString('en-US',{timeZone:'Asia/Kolkata'}));
+const greet=h=>h>=4&&h<12?'Good morning':h===12?'Namaste 🙏':h<17&&h>12?'Good afternoon':h>=17&&h<21?'Good evening':'Good night';
 const pad=n=>String(n).padStart(2,'0');
 const dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
-const today=()=>dk(new Date());
+const today=()=>dk(now());
 const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 let S={members:{},logs:{}},db=null,isAdmin=true,shared=false,me=LS.get('ff_me'),tab=LS.get('ff_me')?'today':'home',ready=false,chat=[],foodQ='',foodCat='all',qi=0;
 const Q=["Small steps every day lead to big changes.","Your body hears everything your mind says. Be kind, be strong.","We are not on a diet. We are building a family habit.","Every walk, every salad, every glass of water counts.","Do it for the people who sit at your dinner table.","Progress, not perfection.","The best time to start was yesterday. The next best is now.","A healthy family is the greatest wealth.","Tired? Do it anyway. Future you says thank you.","Together we sweat, together we shine.","Don’t wait for Monday. Start with this meal.","Strong parents, strong children, strong family.","Age is just a number. Move every day!","One more glass of water. One more step. You can do it!","Discipline is choosing what you want most over what you want now."];
@@ -74,7 +76,7 @@ walk:[['Brisk walk','b','25 min'],['Stairs or incline walk','b','20 min']],mob:[
 gentle:[['Sit-to-stand from chair','b','3×8'],['Seated leg raises','b','2×10'],['Wall push-ups','b','3×10'],['Arm raises (light bottle)','b','2×10'],['Easy walk','b','20 min']]};
 const R={b:0,d:1,g:2};
 const sets=rx=>{const r=/^(\d+)×/.exec(rx);return r?+r[1]:1};
-function sess(m,wd=new Date().getDay()){const a=+m.age,s=GOALS[m.goal]?m.goal:'lose',adv=m.lvl==='adv',eq=m.eq||'b',muscle=s==='lean'||s==='bulk';
+function sess(m,wd=now().getDay()){const a=+m.age,s=GOALS[m.goal]?m.goal:'lose',adv=m.lvl==='adv',eq=m.eq||'b',muscle=s==='lean'||s==='bulk';
  const T={full:['legs','push','pull','core'],push:['push','core'],pull:['pull','core'],leg:['legs','core'],upper:['push','pull','core'],lower:['legs','core'],hiit:['hiit','core'],cardio:['walk','mob'],gentle:['gentle','mob'],rest:[]};
  const N={full:'Full body',push:'Push day',pull:'Pull day',leg:'Leg day',upper:'Upper body',lower:'Lower body',hiit:'Fat-burn HIIT',cardio:'Walk and mobility',gentle:'Gentle strength',rest:'Rest day'};
  const S=a<14?['cardio','hiit','cardio','hiit','cardio','hiit','rest']:a>=60?['rest','gentle','cardio','gentle','cardio','gentle','cardio']:muscle?(adv?['rest','push','pull','leg','push','pull','leg']:['rest','upper','lower','cardio','upper','lower','cardio']):(s==='lose'||s==='cut')?['rest','full','hiit','full','cardio','full','hiit']:['rest','full','cardio','full','cardio','full','hiit'];
@@ -94,13 +96,13 @@ function plX(){clearInterval(plT);const o=$('#pl');if(o)o.remove();PL=null;draw(
 const bmi=(w,h)=>w/((h/100)**2);
 function cat(b){return b<18.5?['Underweight','warn']:b<23?['Healthy','ok']:b<25?['Overweight','warn']:['Obese','bad']}
 function logsOf(id){return Object.values(S.logs).filter(l=>l.mid===id).sort((a,b)=>a.date<b.date?-1:1)}
-const day=n=>{const d=new Date();d.setDate(d.getDate()-n);return dk(d)};
-function stats(m){const L=logsOf(m.id),W=L.filter(l=>l.w),cur=W.length?W[W.length-1].w:+m.w0,a=+m.age,kid=a<18;
+const day=n=>{const d=now();d.setDate(d.getDate()-n);return dk(d)};
+function stats(m){const L=logsOf(m.id),W=L.filter(l=>l.w),cur=W.length?W[W.length-1].w:+m.w0,a=+m.age,kid=a<14;
  const gk=kid?'maintain':(GOALS[m.goal]?m.goal:'lose'),G=GOALS[gk],dir=Math.sign(m.gw-m.w0)||(G[2]<0?-1:1);
  const prog=(cur-m.w0)*dir,span=Math.abs(m.gw-m.w0),pr=span>0?Math.max(0,Math.min(100,prog/span*100)):0;
- let st=0;const d=new Date(),has=new Set(L.filter(l=>l.w||(l.meals||[]).length||(l.ex||[]).length).map(l=>l.date));if(!has.has(dk(d)))d.setDate(d.getDate()-1);while(has.has(dk(d))){st++;d.setDate(d.getDate()-1)}
- const b=bmi(cur,m.h),bmr=10*cur+6.25*m.h-5*a+(m.sex==='M'?5:-161),tdee=bmr*(+m.act||1.375);let adj=kid?0:G[2];if(b<18.5&&adj<0)adj=0;
- const cal=Math.max(tdee+adj,kid?1400:(m.sex==='M'?1500:1200)),pro=Math.round(cur*(kid?1:a>=60?Math.max(1.2,G[3]-.3):G[3])),fat=Math.round(cal*.27/9),carb=Math.max(0,Math.round((cal-pro*4-fat*9)/4));
+ let st=0;const d=now(),has=new Set(L.filter(l=>l.w||(l.meals||[]).length||(l.ex||[]).length).map(l=>l.date));if(!has.has(dk(d)))d.setDate(d.getDate()-1);while(has.has(dk(d))){st++;d.setDate(d.getDate()-1)}
+ const b=bmi(cur,m.h),bmr=10*cur+6.25*m.h-5*a+(m.sex==='M'?5:-161),tdee=bmr*(+m.act||1.375);let adj=kid?0:G[2];if(a<18&&adj<-300)adj=-300;if(b<18.5&&adj<0)adj=0;
+ const cal=Math.max(tdee+adj,a<18?1400:(m.sex==='M'?1500:1200)),pro=Math.round(cur*(kid?1:a>=60?Math.max(1.2,G[3]-.3):G[3])),fat=Math.round(cal*.27/9),carb=Math.max(0,Math.round((cal-pro*4-fat*9)/4));
  const tw=L.reduce((x,l)=>x+(l.ex||[]).length,0),pts=Math.round(Math.max(0,prog)*20+L.length*2+st*5+tw*3),lv=Math.floor(Math.sqrt(pts/20))+1;
  let real=0;const W2=W.filter(l=>l.date>=day(21)),M2=L.filter(l=>l.date>=day(21)&&(l.meals||[]).length>2);
  if(W2.length>=4&&M2.length>=5){const days=(new Date(W2[W2.length-1].date)-new Date(W2[0].date))/864e5;if(days>=7){const sl=(W2[W2.length-1].w-W2[0].w)/days;real=Math.round(M2.reduce((x,l)=>x+tot(l).cal,0)/M2.length-sl*7700);if(real<1000||real>4500)real=0}}
@@ -132,14 +134,14 @@ function vHome(){const ms=Object.values(S.members);const rank=ms.map(m=>({m,s:st
  if(isAdmin)h+=`<div class="card"><h3>👑 Admin panel</h3><p class="mu">Add, edit or remove members. Others can view everyone’s progress.</p><div class="row"><button onclick="editM()">➕ Add member</button>${me&&M()?`<button class="g" onclick="editM('${me}')">✏️ Edit ${M().name}</button>`:''}</div>${shared?'<p class="mu">Family code: <b>'+fam+'</b>. Give this code to everyone so all phones sync.</p>':'<p class="mu">Offline mode: data is only on this phone.</p>'}</div>`;
  return h}
 function mac(n,v,t,u,c){return`<div style="text-align:center">${ring(v/t*100,92,Math.round(v)+u,c,'rgba(130,140,170,.25)')}<div class="mu">${n} / ${t}${u}</div></div>`}
-function gamePlan(m,s,l,t){const rp=s.pro-t.p,h=new Date().getHours();
+function gamePlan(m,s,l,t){const rp=s.pro-t.p,h=now().getHours();
  if(!l.meals.length)return`Start with a protein-rich breakfast. Today’s targets: ${s.cal} kcal and ${s.pro} g protein. Tap Fuel and create an AI meal plan.`;
  if(rp>15&&h>=15)return`You still need ${Math.round(rp)} g protein. Add paneer, dal, curd or soya chunks. Open Fuel for the best picks.`;
  if(!l.ex.length)return`Meals are on track. Next up: ${sess(m).name.toLowerCase()}. Even a short session counts.`;
  if((l.water||0)<6)return'Great work! Finish strong with water. Aim for 8 glasses.';
  return'Excellent day! Sleep 7–8 hours so your body can recover and grow.'}
-function vToday(){const m=M();if(!m)return needMe();const s=stats(m),l=getLog(m.id,today()),t=tot(l),se=sess(m),G=s.G,left=Math.round(s.cal-t.cal),hr=new Date().getHours();
- return`<div class="card hero"><div class="mu">${hr<12?'Good morning':hr<17?'Good afternoon':'Good evening'} ${G[0]}</div><h1>${m.name}, let’s go!</h1><div class="row sp" style="margin-top:10px"><div><div class="big"><span data-n="${Math.abs(left)}">${Math.abs(left)}</span></div><div class="mu">kcal ${left>=0?'left today':'over today'}</div><div class="pill" style="background:rgba(255,255,255,.24);margin-top:10px">${G[0]} ${G[1]} · 🔥 ${s.st} day streak</div></div>${ring(t.cal/s.cal*100,132)}</div></div>
+function vToday(){const m=M();if(!m)return needMe();const s=stats(m),l=getLog(m.id,today()),t=tot(l),se=sess(m),G=s.G,left=Math.round(s.cal-t.cal),hr=now().getHours();
+ return`<div class="card hero"><div class="mu">${greet(hr)} ${G[0]}</div><h1>${m.name}, let’s go!</h1><div class="row sp" style="margin-top:10px"><div><div class="big"><span data-n="${Math.abs(left)}">${Math.abs(left)}</span></div><div class="mu">kcal ${left>=0?'left today':'over today'}</div><div class="pill" style="background:rgba(255,255,255,.24);margin-top:10px" onclick="editM('${m.id}')">${G[0]} ${G[1]} ✏️ · 🔥 ${s.st} day streak</div></div>${ring(t.cal/s.cal*100,132)}</div></div>
  <div class="card"><div class="grid" style="grid-template-columns:repeat(3,1fr);gap:6px">${mac('Protein',t.p,s.pro,'g','#7c5cff')}${mac('Carbs',t.c,s.carb,'g','#22d3ee')}${mac('Fat',t.f,s.fat,'g','#ff7a45')}</div></div>
  <div class="card"><div class="row sp"><h3>🏋️ ${se.name}</h3><span class="pill ${se.items.length&&l.ex.length>=se.items.length?'ok':''}">${l.ex.length}/${se.items.length}</span></div><p class="mu">${se.items.length?se.items.map(x=>x.n).join(' · '):'Recovery day. Stretch, walk and sleep well.'}</p>${se.items.length?'<button onclick="startWk()">▶ Start workout</button>':''}</div>
  <div class="card"><h3>🤖 AI game plan</h3><p>${gamePlan(m,s,l,t)}</p><button class="g" onclick="go('coach')">Open coach</button></div>
@@ -173,7 +175,7 @@ function vFood(){const m=M();if(!m)return needMe();const l=getLog(m.id,today()),
  ${l.meals.length?`<div class="card"><h3>Eaten today</h3>${l.meals.map((x,i)=>`<div class="fi"><span>${x.n} ×${x.q}<br><span class="mu">${Math.round(x.cal)} kcal · P ${x.p.toFixed(0)} · C ${x.c.toFixed(0)}</span></span><button class="g" onclick="delMeal(${i})">✕</button></div>`).join('')}</div>`:''}
  <div class="card"><h3>🥗 Food list</h3><input placeholder="🔍 Search food" value="${foodQ}" oninput="foodQ=this.value;draw('keep')" id="fq" style="margin:8px 0"><div class="row scroll" style="flex-wrap:nowrap;margin-bottom:6px">${cats.map(c=>`<button class="chip ${foodCat===c[0]?'on':''}" onclick="foodCat='${c[0]}';draw()">${c[1]}</button>`).join('')}${[.5,1,1.5,2].map(q=>`<button class="chip ${fq2===q?'on':''}" onclick="fq2=${q};draw('keep')">×${q}</button>`).join('')}</div>
  ${list.map(f=>`<div class="fi"><span>${f[6]?'🚫 ':''}<b>${f[0]}</b> <span class="mu">(${f[1]})</span><br><span class="mu">${f[2]} kcal · P ${f[3]}g · C ${f[4]}g · F ${f[5]}g</span></span><button onclick="addMeal('${f[0]}')">+</button></div>`).join('')||'<p class="mu">Nothing found</p>'}<button class="g" style="margin-top:12px" onclick="custom()">➕ Add my own food</button></div>`}
-function vWork(){const m=M();if(!m)return needMe();const s=stats(m),se=sess(m),l=getLog(m.id,today()),wd=new Date().getDay(),wk=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+function vWork(){const m=M();if(!m)return needMe();const s=stats(m),se=sess(m),l=getLog(m.id,today()),wd=now().getDay(),wk=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
  return`<h1>🏋️ Train</h1><div class="card hero"><div class="mu">Today · ${s.G[0]} ${s.G[1]}</div><h1>${se.name}</h1><div class="mu">${se.items.length} exercises · rest ${se.rest}s between sets</div>${se.items.length?'<button class="bg" style="margin-top:12px" onclick="startWk()">▶ Start guided workout</button>':''}</div>
  ${se.items.map((e,i)=>`<div class="ex ${l.ex.includes(i)?'d':''}"><div class="ck">✓</div><div><div class="t"><b>${e.n}</b></div><div class="mu">${e.rx}</div></div></div>`).join('')}
  <div class="card"><h3>📆 This week</h3><div class="row" style="margin-top:8px">${[1,2,3,4,5,6,0].map(d=>`<span class="pill ${d===wd?'ok':''}">${wk[d]} · ${sess(m,d).name}</span>`).join('')}</div></div>
@@ -198,6 +200,7 @@ function coach(m){const s=stats(m),l=getLog(m.id,today()),t=tot(l),T=[],a=+m.age
  if(s.kid)T.push('🧒 For children we focus on healthy food and play, not weight loss. Please talk to your child’s doctor.');
  else if(s.b>=25&&s.G[2]>0)T.push('⚠️ Your BMI is high for a bulk. A Cut or Recomp may suit you better. Change it in Family > Edit.');
  else if(s.b<18.5&&s.G[2]<=0)T.push('Your BMI is low. A Lean bulk may suit you better. I kept your calories at maintenance.');
+ if(a>=14&&a<18&&s.G[2]<0)T.push('🧑 Teen note: I use a gentle deficit for your age. Please talk to your doctor before aggressive dieting.');
  const W=s.W.filter(x=>x.date>=day(14));
  if(W.length>=4){const d=(W[W.length-1].w-W[0].w)*s.dir;T.push(d>.3?`📈 You moved ${d.toFixed(1)} kg toward your goal in 2 weeks. Keep going!`:d<-.3?'⚠️ Your weight is moving away from your goal. Review portions and consistency this week.':'➡️ Weight is steady for 2 weeks. '+(s.dir<0?'Plateau breaker: walk 10 minutes more daily and trim one snack (about 150 kcal).':'Add 150 kcal (banana with peanut butter) and push harder in training.'))}else T.push('Log your weight daily for a week and I will analyse your trend.');
  if(s.real)T.push(`🧠 Your real maintenance is about ${s.real} kcal. Your target is ${s.cal}.`);
@@ -234,7 +237,7 @@ function editM(id){const m=id?S.members[id]:{e:'🙂',sex:'M',age:'',h:'',w0:'',
 function submitM(id){const g=x=>$('#'+x).value;const n=g('fn').trim(),a=+g('fa'),h=+g('fh'),w=+g('fw');if(!n||!a||!h||!w||h<80||h>230)return toast('Please fill name, age, height and weight');
  let gw=+g('fg');if(!gw){const G=g('fgl');gw=G==='lean'||G==='bulk'?w+4:G==='lose'||G==='cut'?Math.min(w,Math.round(22.9*(h/100)**2)):w}const old=id?S.members[id]:null;
  const m={id:id||'m'+Date.now().toString(36),name:n,age:a,sex:g('fs'),h,w0:old?old.w0:w,gw,e:window._e,goal:g('fgl'),act:+g('fac'),lvl:g('flv'),eq:g('feq')};if(old&&w!==old.w0&&!logsOf(id).length)m.w0=w;
- saveMember(m);document.querySelector('.modal').remove();if(!me){me=m.id;LS.set('ff_me',me)}confetti();toast('Saved ✓');draw()}
+ saveMember(m);document.querySelector('.modal').remove();if(!me){me=m.id;LS.set('ff_me',me)}confetti();toast('Saved ✓ Goal: '+GOALS[m.goal][1]);draw()}
 // ---------- render ----------
 const NAV=[['today','🏠','Home'],['work','🏋️','Train'],['food','🥗','Fuel'],['prog','📈','Progress'],['home','👨‍👩‍👧','Family']];
 function draw(keep){const y=scrollY,a=document.activeElement&&document.activeElement.id;$('#app').innerHTML=(FB&&!fam)?vSetup():{home:vHome,today:vToday,food:vFood,work:vWork,prog:vProg,coach:vCoach}[tab]();
