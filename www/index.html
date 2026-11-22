@@ -1,49 +1,56 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>FitFamily</title>
+<title>FitFamily</title><link rel="manifest" href="manifest.webmanifest"><meta name="theme-color" content="#7c5cff"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes">
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--tx:#1d2433;--mu:#6b7488;--pr:#16a34a;--pr2:#22c55e;--ac:#f97316;--bd:#e6e9f2;--sh:0 6px 24px rgba(30,40,80,.08);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1420;--card:#1a2133;--tx:#eef1f8;--mu:#9aa5bd;--bd:#2a3350;--sh:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f1420;--card:#1a2133;--tx:#eef1f8;--mu:#9aa5bd;--bd:#2a3350;--sh:0 6px 24px rgba(0,0,0,.4);color-scheme:dark}
+:root{--bg:#f2f4fb;--card:rgba(255,255,255,.82);--tx:#141a2e;--mu:#65708b;--pr:#7c5cff;--ac:#ff7a45;--bd:rgba(110,120,160,.2);--sh:0 10px 36px rgba(70,80,140,.14);--g:linear-gradient(135deg,#7c5cff,#22d3ee);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a0d18;--card:rgba(30,36,62,.7);--tx:#eef1fb;--mu:#98a3c0;--bd:rgba(150,165,210,.16);--sh:0 10px 36px rgba(0,0,0,.5);color-scheme:dark}}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}body{background:var(--bg);color:var(--tx);font:18px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:90px}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-main{max-width:680px;margin:0 auto;padding:16px}
-h1{font-size:26px;margin:4px 0}h2{font-size:21px;margin:18px 0 8px}h3{font-size:18px;margin:0}
-.card{background:var(--card);border-radius:20px;padding:16px;margin:12px 0;box-shadow:var(--sh);animation:up .5s both}
-@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.hero{background:linear-gradient(135deg,#16a34a,#0ea5e9);color:#fff}
-.mu{color:var(--mu);font-size:15px}.hero .mu{color:#e6fff0}
+html,body{margin:0}body{background:var(--bg);color:var(--tx);font:17px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding-bottom:130px;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:30}
+body::after{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(520px 380px at 8% -4%,rgba(124,92,255,.3),transparent),radial-gradient(480px 380px at 100% 8%,rgba(34,211,238,.22),transparent),radial-gradient(400px 300px at 50% 105%,rgba(255,122,69,.16),transparent)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:25;display:flex;justify-content:space-between;align-items:center;max-width:680px;margin:0 auto;padding:10px 16px;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);font-size:19px}
+.av2{padding:6px 14px;min-height:40px;border-radius:99px;background:var(--card);color:var(--tx);border:1px solid var(--bd);font-size:15px;box-shadow:none}
+main{max-width:680px;margin:0 auto;padding:6px 16px}
+h1{font-size:27px;margin:4px 0;letter-spacing:-.5px}h2{font-size:21px;margin:18px 0 8px}h3{font-size:18px;margin:0}
+.card{background:var(--card);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid var(--bd);border-radius:24px;padding:18px;margin:14px 0;box-shadow:var(--sh)}
+.fx>*{animation:up .6s cubic-bezier(.2,.8,.2,1) both}
+@keyframes up{from{opacity:0;transform:translateY(22px) scale(.97)}to{opacity:1;transform:none}}@keyframes fade{from{opacity:0}to{opacity:1}}@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}@keyframes pulse{50%{transform:scale(1.25)}}@keyframes flt{50%{transform:translateY(-6px)}}
+.hero{background:var(--g);color:#fff;border:0;position:relative;overflow:hidden}.hero::after{content:"";position:absolute;width:230px;height:230px;right:-60px;top:-90px;border-radius:50%;background:rgba(255,255,255,.16);animation:pulse 5s ease-in-out infinite}.hero>*{position:relative;z-index:1}
+.mu{color:var(--mu);font-size:15px}.hero .mu{color:rgba(255,255,255,.88)}
 .row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.sp{justify-content:space-between}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
-button,.btn{font:inherit;font-weight:700;border:0;border-radius:16px;padding:14px 18px;background:var(--pr);color:#fff;cursor:pointer;transition:transform .15s,box-shadow .15s;min-height:50px}
-button:active{transform:scale(.95)}button.o{background:transparent;color:var(--pr);border:2px solid var(--pr)}button.g{background:var(--bd);color:var(--tx)}button.r{background:#ef4444}button.w{background:var(--ac)}
-input,select{font:inherit;width:100%;padding:13px;border-radius:14px;border:2px solid var(--bd);background:var(--bg);color:var(--tx);min-height:50px}
-label{display:block;font-weight:600;margin:10px 0 4px;font-size:16px}
-.mem{text-align:center;cursor:pointer;transition:transform .2s}.mem:hover{transform:translateY(-4px)}.mem:active{transform:scale(.96)}
-.av{font-size:44px;width:70px;height:70px;border-radius:50%;display:grid;place-items:center;margin:0 auto 6px;background:var(--bd)}
-.pill{display:inline-block;padding:4px 12px;border-radius:99px;font-size:14px;font-weight:700;background:var(--bd)}
-.ok{background:#dcfce7;color:#166534}.warn{background:#ffedd5;color:#9a3412}.bad{background:#fee2e2;color:#991b1b}
-.bar{height:12px;border-radius:9px;background:var(--bd);overflow:hidden}.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--pr),var(--pr2));border-radius:9px;transition:width 1s cubic-bezier(.2,.8,.2,1);width:0}
-nav{position:fixed;bottom:0;left:0;right:0;background:var(--card);display:flex;justify-content:space-around;padding:6px 4px calc(6px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 20px rgba(0,0,0,.1);z-index:20}
-nav button{background:none;color:var(--mu);padding:6px 8px;font-size:12px;display:flex;flex-direction:column;align-items:center;min-height:56px;flex:1;border-radius:12px}
-nav button b{font-size:24px;line-height:1}nav button.on{color:var(--pr);background:var(--bd)}
-.q{font-style:italic;font-size:19px;animation:fade .8s}@keyframes fade{from{opacity:0}to{opacity:1}}
-.ex{display:flex;gap:12px;align-items:center;padding:12px;border-radius:16px;border:2px solid var(--bd);margin:8px 0;cursor:pointer;transition:.25s}
-.ex.d{background:#dcfce7;border-color:#22c55e;color:#14532d}.ex.d .t{text-decoration:line-through}
-.ck{width:34px;height:34px;border-radius:50%;border:3px solid var(--bd);display:grid;place-items:center;flex:none;transition:.3s}.ex.d .ck{background:#22c55e;border-color:#22c55e;color:#fff;transform:rotate(360deg)}
-.fi{display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid var(--bd)}
-.big{font-size:38px;font-weight:800;line-height:1}
+button{font:inherit;font-weight:700;border:0;border-radius:18px;padding:14px 20px;background:var(--g);color:#fff;cursor:pointer;transition:transform .2s cubic-bezier(.3,1.6,.5,1);min-height:50px;box-shadow:0 6px 18px rgba(124,92,255,.35)}
+button:active{transform:scale(.93)}.hero button{background:#fff;color:#4c3bd6;box-shadow:none}
+button.o{background:transparent;color:var(--pr);border:2px solid var(--pr);box-shadow:none}button.g{background:var(--bd);color:var(--tx);box-shadow:none}button.r{background:#ef4444}
+input,select{font:inherit;width:100%;padding:13px;border-radius:14px;border:2px solid transparent;background:rgba(130,140,170,.14);color:var(--tx);min-height:50px;transition:border-color .2s}input:focus,select:focus{border-color:var(--pr);outline:0}
+label{display:block;font-weight:600;margin:10px 0 4px;font-size:15px}
+.mem{text-align:center;cursor:pointer;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}.mem:hover{transform:translateY(-4px)}.mem:active{transform:scale(.95)}
+.av{font-size:44px;width:72px;height:72px;border-radius:50%;display:grid;place-items:center;margin:0 auto 6px;background:var(--bd)}
+.pill{display:inline-block;padding:5px 12px;border-radius:99px;font-size:13px;font-weight:700;background:var(--bd)}
+.ok{background:rgba(34,197,94,.18);color:#16a34a}.warn{background:rgba(249,115,22,.18);color:#ea7a1a}.bad{background:rgba(239,68,68,.18);color:#ef4444}
+.bar{height:12px;border-radius:9px;background:var(--bd);overflow:hidden}.bar i{display:block;height:100%;background:var(--g);border-radius:9px;transition:width 1.1s cubic-bezier(.2,.8,.2,1);width:0}
+nav{position:fixed;left:12px;right:12px;bottom:calc(10px + env(safe-area-inset-bottom,0px));max-width:520px;margin:auto;display:flex;background:var(--card);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);border:1px solid var(--bd);border-radius:28px;box-shadow:var(--sh);z-index:20;padding:6px;--i:0;--o:1}
+nav::before{content:"";position:absolute;top:6px;bottom:6px;left:6px;width:calc((100% - 12px)/5);border-radius:22px;background:var(--g);opacity:var(--o);transform:translateX(calc(var(--i)*100%));transition:transform .55s cubic-bezier(.3,1.5,.5,1),opacity .3s}
+nav button{position:relative;background:none;box-shadow:none;color:var(--mu);flex:1;padding:8px 0;font-size:11px;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:54px;border-radius:22px;transition:color .3s}
+nav button b{font-size:22px;line-height:1;transition:transform .45s cubic-bezier(.3,1.6,.5,1)}nav button.on{color:#fff}nav button.on b{transform:translateY(-2px) scale(1.18)}
+.fab{position:fixed;right:16px;bottom:calc(94px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;padding:0;font-size:26px;display:none;place-items:center;z-index:19;box-shadow:0 10px 30px rgba(124,92,255,.5);animation:flt 3s ease-in-out infinite}
+.q{font-style:italic;font-size:18px;transition:opacity .4s}
+.ex{display:flex;gap:12px;align-items:center;padding:13px;border-radius:18px;border:2px solid var(--bd);margin:8px 0;background:var(--card);transition:.3s}
+.ex.d{background:rgba(34,197,94,.14);border-color:#22c55e}.ex.d .t{text-decoration:line-through;opacity:.7}
+.ck{width:34px;height:34px;border-radius:50%;border:3px solid var(--bd);display:grid;place-items:center;flex:none;transition:.4s;color:transparent}.ex.d .ck{background:#22c55e;border-color:#22c55e;color:#fff;transform:rotate(360deg)}
+.fi{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:11px 0;border-bottom:1px solid var(--bd)}
+.big{font-size:44px;font-weight:800;line-height:1.05;letter-spacing:-1px}
 .modal{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:50;display:grid;place-items:end center;animation:fade .2s}
-.modal>div{background:var(--card);width:100%;max-width:560px;border-radius:24px 24px 0 0;padding:20px;max-height:90vh;overflow:auto;animation:up .35s}
+.modal>div{background:var(--bg);color:var(--tx);width:100%;max-width:560px;border-radius:28px 28px 0 0;padding:20px;max-height:90vh;overflow:auto;animation:up .4s}
 .cf{position:fixed;top:-20px;font-size:26px;z-index:99;pointer-events:none;animation:fall 2.2s ease-in forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(540deg);opacity:.2}}
-.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:#16a34a;color:#fff;padding:12px 20px;border-radius:99px;z-index:99;font-weight:700;animation:up .4s;max-width:92%;text-align:center}
-.chat{background:var(--bg);border-radius:16px;padding:12px;margin:8px 0}.me{background:#dcfce7;color:#14532d;margin-left:30px}
-.scroll{overflow-x:auto}.chip{padding:8px 14px;border-radius:99px;background:var(--bd);font-weight:600;font-size:15px;cursor:pointer;white-space:nowrap;border:0;min-height:40px}
-.chip.on{background:var(--pr);color:#fff}
-</style></head><body><main id="app"></main><nav id="nav"></nav>
+.toast{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);background:var(--g);color:#fff;padding:12px 20px;border-radius:99px;z-index:99;font-weight:700;animation:up .4s;max-width:92%;text-align:center;box-shadow:var(--sh)}
+.chat{background:rgba(130,140,170,.14);border-radius:18px;padding:12px;margin:8px 0}.me{background:rgba(124,92,255,.22);margin-left:30px}
+.scroll{overflow-x:auto}.chip{padding:8px 14px;border-radius:99px;background:var(--bd);color:var(--tx);font-weight:600;font-size:15px;white-space:nowrap;min-height:40px;box-shadow:none}.chip.on{background:var(--g);color:#fff}
+.pl{position:fixed;inset:0;z-index:60;background:var(--bg);color:var(--tx);display:grid;place-items:center;animation:fade .3s;padding:20px}
+.pl::before{content:"";position:absolute;inset:0;background:radial-gradient(500px 420px at 50% 15%,rgba(124,92,255,.4),transparent)}
+.plc{position:relative;text-align:center;width:100%;max-width:420px;display:grid;gap:16px}.plc h1{font-size:34px}.plc .big{font-size:72px}.bg{font-size:20px;padding:18px}
+</style></head><body><header id="hd"></header><main id="app"></main><nav id="nav"></nav><button class="fab" id="fab" onclick="go('coach')">🤖</button>
 <script src="config.js"></script>
 <script>
 const $=s=>document.querySelector(s);
@@ -51,30 +58,54 @@ const pad=n=>String(n).padStart(2,'0');
 const dk=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const today=()=>dk(new Date());
 const LS={get(k){try{return localStorage.getItem(k)}catch(e){return null}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
-let S={members:{},logs:{}},db=null,isAdmin=true,shared=false,me=LS.get('ff_me'),tab='home',ready=false,chat=[],foodQ='',foodCat='all',qi=0;
+let S={members:{},logs:{}},db=null,isAdmin=true,shared=false,me=LS.get('ff_me'),tab=LS.get('ff_me')?'today':'home',ready=false,chat=[],foodQ='',foodCat='all',qi=0;
 const Q=["Small steps every day lead to big changes.","Your body hears everything your mind says. Be kind, be strong.","We are not on a diet. We are building a family habit.","Every walk, every salad, every glass of water counts.","Do it for the people who sit at your dinner table.","Progress, not perfection.","The best time to start was yesterday. The next best is now.","A healthy family is the greatest wealth.","Tired? Do it anyway. Future you says thank you.","Together we sweat, together we shine.","Don’t wait for Monday. Start with this meal.","Strong parents, strong children, strong family.","Age is just a number. Move every day!","One more glass of water. One more step. You can do it!","Discipline is choosing what you want most over what you want now."];
 const FOODS=[["Paneer","100 g",265,18,1.2,20],["Dal (cooked)","1 katori",150,9,25,2],["Moong sprouts","1 bowl",60,6,10,.4],["Tofu","100 g",76,8,2,5],["Soya chunks","30 g dry",104,16,10,.5],["Curd (dahi)","1 bowl",90,5,7,4],["Milk","1 glass",120,6,10,6],["Buttermilk (chaas)","1 glass",40,2,5,1],["Chana boiled","1 bowl",164,9,27,2.6],["Rajma","1 bowl",190,12,33,1],["Besan chilla","1 piece",120,6,15,4],["Roti (phulka)","1 piece",100,3,18,2],["Brown rice","1 cup",215,5,45,1.8],["White rice","1 cup",205,4,45,.4],["Oats","40 g",150,5,27,3],["Poha","1 plate",250,5,45,6],["Upma","1 plate",230,5,35,8],["Idli","2 pieces",120,4,25,.5],["Dosa (plain)","1 piece",130,3,22,3],["Mixed sabzi","1 bowl",90,3,12,4],["Salad","1 bowl",40,2,8,.3],["Banana","1 medium",105,1.3,27,.4],["Apple","1 medium",95,.5,25,.3],["Almonds","10 pieces",70,2.6,2.5,6],["Peanuts","30 g",170,7.5,5,14],["Peanut butter","1 tbsp",95,4,3,8],["Chai with sugar","1 cup",70,2,10,2.5],["Ghee","1 tsp",45,0,0,5],["Samosa / kachori","1 piece",250,6,28,14,1],["Pizza","1 slice",285,12,36,10,1],["Sweets (mithai)","1 piece",200,3,30,8,1],["Cold drink","1 glass",140,0,35,0,1],["Namkeen / chips","30 g",160,3,15,10,1],["Fried puri / bhatura","1 piece",190,3,22,10,1]];
+FOODS.push(["Soya milk","1 glass",100,7,8,4],["Sattu drink","1 glass",160,8,25,2],["Roasted chana","30 g",110,6,18,2],["Ragi roti","1 piece",110,3,22,.8],["Jowar roti","1 piece",100,3,21,.7],["Quinoa (cooked)","1 cup",220,8,39,3.5],["Whey protein (veg)","1 scoop",120,24,3,1.5],["Greek yogurt","1 bowl",100,10,4,3],["Paneer bhurji","1 bowl",220,16,6,15],["Mushroom sabzi","1 bowl",80,6,8,3],["Sweet potato","1 medium",110,2,26,.2],["Dates","3 pieces",70,.6,18,0],["Walnuts","5 halves",90,2,2,9],["Chia seeds","1 tbsp",60,2,5,4],["Pumpkin seeds","1 tbsp",55,3,1,5],["Oats chilla","1 piece",110,5,16,3],["Paneer tikka","6 pieces",200,15,6,13],["Moong dal chilla","1 piece",100,6,13,2],["Khichdi","1 bowl",220,8,38,4],["Pasta","1 cup",220,8,43,1.3]);
 const HIPRO=["Soya chunks","Paneer","Tofu","Dal (cooked)","Rajma","Chana boiled","Moong sprouts","Curd (dahi)","Besan chilla","Milk"];
-const WK={
- young:[["Brisk walk","20 min","Talk-test pace: you can speak but not sing"],["Squats","3 x 12","Sit back like on a chair"],["Push-ups (knees ok)","3 x 8","Wall push-ups are fine to begin"],["Plank","3 x 20 sec","Keep your back straight"],["Jumping jacks","3 x 20","Or march in place"],["Stretching","5 min","Slow deep breaths"]],
- mid:[["Brisk walk","25 min","Wear comfortable shoes"],["Chair squats","3 x 10","Touch the chair and stand up"],["Wall push-ups","3 x 10","Stand an arm length from the wall"],["Glute bridge","3 x 12","Lie down, lift hips slowly"],["Marching in place","3 x 1 min","Lift knees to a comfortable height"],["Full body stretch","5 min","Never force a stretch"]],
- senior:[["Easy walk","20 min","Split into 2 x 10 min if tired"],["Sit-to-stand from chair","3 x 8","Use arms for support if needed"],["Seated leg raises","2 x 10","Keep your back supported"],["Arm raises (light bottle)","2 x 10","Use a 500 ml water bottle"],["Ankle and shoulder circles","2 min","Slow and gentle"],["Deep breathing / pranayama","5 min","Sit comfortably, relax"]],
- kid:[["Play outside","45 min","Cycling, running, any sport"],["Skipping rope","3 x 1 min","Fun with the family"],["Dance together","10 min","Put on music!"],["Stretching","5 min","Touch your toes"]]};
-const SEXX={F:[["Glute bridge","3 x 15","Squeeze at the top"],["Side leg raises","2 x 12 each","Strengthen hips"]],M:[["Push-ups","3 x 10","Chest to near floor"],["Lunges","3 x 10 each","Step forward, knee over ankle"]]};
-const WEEK=["Rest-active: easy walk + stretch","Full body","Walk + core","Full body","Walk + core","Fun day: dance or sport","Rest day: stretch and relax"];
-function plan(m){const a=+m.age;let b=a<14?'kid':a<40?'young':a<60?'mid':'senior';let p=WK[b].slice();if(b!=='kid'&&b!=='senior'){p=p.slice(0,4).concat(SEXX[m.sex]||[]).concat(p.slice(-1))}return{b,p}}
+const GOALS={lose:['🔥','Fat loss',-450,1.6],cut:['✂️','Cut',-650,2],recomp:['⚖️','Recomp',-100,1.8],maintain:['🧘','Maintain',0,1.3],lean:['💪','Lean bulk',250,1.8],bulk:['🦍','Bulk',500,1.8]};
+const GT={lose:'Moderate deficit, about 0.5 kg per week, strength training and walking.',cut:'Deficit with high protein and heavy lifting to keep your muscle.',recomp:'Eat near maintenance, high protein, lift and get stronger.',maintain:'Hold your weight and build lasting habits.',lean:'Small surplus and progressive lifting for clean muscle gain.',bulk:'Bigger surplus, heavy lifting and lots of protein for fast muscle gain.'};
+const LIB={push:[['Push-ups','b','3×10'],['Pike push-ups','b','3×8'],['Dumbbell press','d','3×10'],['Overhead press','d','3×10'],['Bench press','g','4×8']],
+pull:[['Backpack rows','b','3×12'],['Superman hold','b','3×12'],['Dumbbell rows','d','3×10'],['Biceps curls','d','3×12'],['Lat pulldown','g','4×10']],
+legs:[['Squats','b','3×15'],['Lunges','b','3×10'],['Glute bridge','b','3×15'],['Goblet squat','d','3×12'],['Romanian deadlift','d','3×10'],['Leg press','g','4×10']],
+core:[['Plank','b','3×30s'],['Crunches','b','3×15'],['Mountain climbers','b','3×30s'],['Leg raises','b','3×10']],
+hiit:[['Jumping jacks','b','4×30s'],['High knees','b','4×30s'],['Burpees','b','3×8'],['Skater hops','b','3×20']],
+walk:[['Brisk walk','b','25 min'],['Stairs or incline walk','b','20 min']],mob:[['Full-body stretch','b','5 min'],['Pranayama breathing','b','5 min']],
+gentle:[['Sit-to-stand from chair','b','3×8'],['Seated leg raises','b','2×10'],['Wall push-ups','b','3×10'],['Arm raises (light bottle)','b','2×10'],['Easy walk','b','20 min']]};
+const R={b:0,d:1,g:2};
+const sets=rx=>{const r=/^(\d+)×/.exec(rx);return r?+r[1]:1};
+function sess(m,wd=new Date().getDay()){const a=+m.age,s=GOALS[m.goal]?m.goal:'lose',adv=m.lvl==='adv',eq=m.eq||'b',muscle=s==='lean'||s==='bulk';
+ const T={full:['legs','push','pull','core'],push:['push','core'],pull:['pull','core'],leg:['legs','core'],upper:['push','pull','core'],lower:['legs','core'],hiit:['hiit','core'],cardio:['walk','mob'],gentle:['gentle','mob'],rest:[]};
+ const N={full:'Full body',push:'Push day',pull:'Pull day',leg:'Leg day',upper:'Upper body',lower:'Lower body',hiit:'Fat-burn HIIT',cardio:'Walk and mobility',gentle:'Gentle strength',rest:'Rest day'};
+ const S=a<14?['cardio','hiit','cardio','hiit','cardio','hiit','rest']:a>=60?['rest','gentle','cardio','gentle','cardio','gentle','cardio']:muscle?(adv?['rest','push','pull','leg','push','pull','leg']:['rest','upper','lower','cardio','upper','lower','cardio']):(s==='lose'||s==='cut')?['rest','full','hiit','full','cardio','full','hiit']:['rest','full','cardio','full','cardio','full','hiit'];
+ const k=S[wd],items=[];if(T[k].length&&k!=='cardio'&&k!=='gentle')items.push({n:'Warm-up',rx:'1×3 min'});
+ T[k].forEach(g=>{const p=LIB[g].filter(x=>R[x[1]]<=R[eq]).sort((x,y)=>R[y[1]]-R[x[1]]);if(g==='legs'&&m.sex==='F')p.sort((x,y)=>/Glute/.test(y[0])-/Glute/.test(x[0]));const n=g==='core'?2:g==='walk'||g==='mob'?1:g==='hiit'?3:g==='gentle'?5:muscle?3:2;p.slice(0,n).forEach(x=>items.push({n:x[0],rx:x[2]}))});
+ return{name:N[k],items,rest:muscle?90:a>=60?60:45}}
+let PL=null,plT=null;
+function startWk(){const s=sess(M());if(!s.items.length)return;PL={i:0,set:1,rest:0,max:1,s};plR()}
+function plR(){let o=$('#pl');if(!o){o=document.createElement('div');o.id='pl';o.className='pl';document.body.appendChild(o)}const e=PL.s.items[PL.i];
+ if(!e){o.innerHTML=`<div class="plc"><div style="font-size:90px">🏆</div><h1>Workout complete!</h1><p class="mu">+${PL.s.items.length*3} XP earned. Your family is proud of you!</p><button class="bg" onclick="plX()">Finish</button></div>`;confetti();return}
+ if(PL.rest){const nx=PL.set>1&&sets(e.rx)>=PL.set?e.n+' (set '+PL.set+')':e.n;o.innerHTML=`<div class="plc"><div class="mu">😮‍💨 Rest</div><div class="big" id="rn">${PL.rest}</div><div class="bar"><i id="rb" style="width:${PL.rest/PL.max*100}%;transition:width 1s linear"></i></div><p class="mu">Next: ${nx}</p><button class="g" onclick="PL.rest=1">Skip rest</button></div>`;return}
+ o.innerHTML=`<div class="plc"><div class="mu">Exercise ${PL.i+1} of ${PL.s.items.length}</div><h1>${e.n}</h1><div class="big">${e.rx}</div><div class="mu">Set ${PL.set} of ${sets(e.rx)}</div><button class="bg" onclick="plDone()">✓ Set done</button><button class="g" onclick="plX()">Exit</button></div>`}
+function plRest(){PL.max=PL.rest=PL.s.rest;clearInterval(plT);plT=setInterval(()=>{PL.rest--;if(PL.rest<=0){clearInterval(plT);PL.rest=0;plR()}else{const n=$('#rn'),b=$('#rb');if(n)n.textContent=PL.rest;if(b)b.style.width=PL.rest/PL.max*100+'%'}},1000)}
+function plDone(){const e=PL.s.items[PL.i];vib();if(PL.set<sets(e.rx)){PL.set++;plRest()}else{const l=getLog(me,today());if(!l.ex.includes(PL.i))l.ex.push(PL.i);saveLog(l);PL.i++;PL.set=1;if(PL.i<PL.s.items.length)plRest()}plR()}
+function plX(){clearInterval(plT);const o=$('#pl');if(o)o.remove();PL=null;draw()}
 // ---------- calculations ----------
 const bmi=(w,h)=>w/((h/100)**2);
 function cat(b){return b<18.5?['Underweight','warn']:b<23?['Healthy','ok']:b<25?['Overweight','warn']:['Obese','bad']}
 function logsOf(id){return Object.values(S.logs).filter(l=>l.mid===id).sort((a,b)=>a.date<b.date?-1:1)}
-function stats(m){const L=logsOf(m.id),W=L.filter(l=>l.w);const cur=W.length?W[W.length-1].w:+m.w0;const lost=+m.w0-cur;const tot=+m.w0-+m.gw;const pr=tot>0?Math.max(0,Math.min(100,lost/tot*100)):0;
- let st=0;const d=new Date();const has=new Set(L.filter(l=>l.w||(l.meals||[]).length||(l.ex||[]).length).map(l=>l.date));if(!has.has(dk(d)))d.setDate(d.getDate()-1);while(has.has(dk(d))){st++;d.setDate(d.getDate()-1)}
- const b=bmi(cur,m.h),a=+m.age,kid=a<18;
- const bmr=10*cur+6.25*m.h-5*a+(m.sex==='M'?5:-161);const tdee=bmr*1.35;let cal=kid||b<23?tdee:tdee-450;cal=Math.max(cal,kid?1400:(m.sex==='M'?1500:1200));
- const pro=Math.round(Math.min(cur,+m.gw||cur)*(a>=60?1.2:1));
- const pts=Math.round(lost*20+L.length*2+st*5+L.reduce((s,l)=>s+(l.ex||[]).length,0));
- return{L,W,cur,lost,pr,st,b,cat:cat(b),cal:Math.round(cal),pro,pts,lo:Math.round(18.5*(m.h/100)**2),hi:Math.round(22.9*(m.h/100)**2),weeks:Math.max(0,Math.ceil((cur-m.gw)/.5)),kid}}
-const getLog=(id,d)=>S.logs[id+'_'+d]||{id:id+'_'+d,mid:id,date:d,w:0,water:0,meals:[],ex:[]};
+const day=n=>{const d=new Date();d.setDate(d.getDate()-n);return dk(d)};
+function stats(m){const L=logsOf(m.id),W=L.filter(l=>l.w),cur=W.length?W[W.length-1].w:+m.w0,a=+m.age,kid=a<18;
+ const gk=kid?'maintain':(GOALS[m.goal]?m.goal:'lose'),G=GOALS[gk],dir=Math.sign(m.gw-m.w0)||(G[2]<0?-1:1);
+ const prog=(cur-m.w0)*dir,span=Math.abs(m.gw-m.w0),pr=span>0?Math.max(0,Math.min(100,prog/span*100)):0;
+ let st=0;const d=new Date(),has=new Set(L.filter(l=>l.w||(l.meals||[]).length||(l.ex||[]).length).map(l=>l.date));if(!has.has(dk(d)))d.setDate(d.getDate()-1);while(has.has(dk(d))){st++;d.setDate(d.getDate()-1)}
+ const b=bmi(cur,m.h),bmr=10*cur+6.25*m.h-5*a+(m.sex==='M'?5:-161),tdee=bmr*(+m.act||1.375);let adj=kid?0:G[2];if(b<18.5&&adj<0)adj=0;
+ const cal=Math.max(tdee+adj,kid?1400:(m.sex==='M'?1500:1200)),pro=Math.round(cur*(kid?1:a>=60?Math.max(1.2,G[3]-.3):G[3])),fat=Math.round(cal*.27/9),carb=Math.max(0,Math.round((cal-pro*4-fat*9)/4));
+ const tw=L.reduce((x,l)=>x+(l.ex||[]).length,0),pts=Math.round(Math.max(0,prog)*20+L.length*2+st*5+tw*3),lv=Math.floor(Math.sqrt(pts/20))+1;
+ let real=0;const W2=W.filter(l=>l.date>=day(21)),M2=L.filter(l=>l.date>=day(21)&&(l.meals||[]).length>2);
+ if(W2.length>=4&&M2.length>=5){const days=(new Date(W2[W2.length-1].date)-new Date(W2[0].date))/864e5;if(days>=7){const sl=(W2[W2.length-1].w-W2[0].w)/days;real=Math.round(M2.reduce((x,l)=>x+tot(l).cal,0)/M2.length-sl*7700);if(real<1000||real>4500)real=0}}
+ return{L,W,cur,lost:prog,pr,st,b,cat:cat(b),cal:Math.round(cal),pro,fat,carb,pts,lv,nx:lv*lv*20,pv:(lv-1)*(lv-1)*20,tw,real,bf:Math.max(5,1.2*b+.23*a-10.8*(m.sex==='M'?1:0)-5.4),gk,G,kid,dir,lo:Math.round(18.5*(m.h/100)**2),hi:Math.round(22.9*(m.h/100)**2),weeks:pr>=100?0:Math.ceil(Math.abs(m.gw-cur)/(dir<0?.5:.25))}}
+const getLog=(id,d)=>{const l=S.logs[id+'_'+d]||{id:id+'_'+d,mid:id,date:d,w:0,water:0};l.meals=l.meals||[];l.ex=l.ex||[];return l};
 function tot(l){return(l.meals||[]).reduce((t,x)=>({cal:t.cal+x.cal,p:t.p+x.p,c:t.c+x.c,f:t.f+x.f}),{cal:0,p:0,c:0,f:0})}
 // ---------- storage ----------
 const FB=((window.FF_CONFIG&&window.FF_CONFIG.firebaseUrl)||'').replace(/\/$/,'');let fam=LS.get('ff_fam')||'';
@@ -90,96 +121,134 @@ function setupFam(c){const v=($('#fc').value||'').trim().toLowerCase().replace(/
 // ---------- helpers ----------
 function toast(t){const e=document.createElement('div');e.className='toast';e.textContent=t;document.body.appendChild(e);setTimeout(()=>e.remove(),2800)}
 function confetti(){const c=['🎉','⭐','💪','🥗','🔥','🏆','✨'];for(let i=0;i<28;i++){const e=document.createElement('div');e.className='cf';e.textContent=c[i%c.length];e.style.left=Math.random()*100+'vw';e.style.animationDelay=Math.random()*.6+'s';document.body.appendChild(e);setTimeout(()=>e.remove(),3200)}}
-function ring(p,size=120){const r=size/2-10,c=2*Math.PI*r;return`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="10"/><circle class="rg" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" data-t="${c*(1-p/100)}" style="transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1);transform:rotate(-90deg);transform-origin:center"/><text x="50%" y="54%" text-anchor="middle" fill="#fff" font-size="${size/5}" font-weight="800">${Math.round(p)}%</text></svg>`}
+function ring(p,size=120,lab,col='#fff',tr='rgba(255,255,255,.28)'){const r=size/2-10,c=2*Math.PI*r;p=Math.max(0,Math.min(100,p||0));return`<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}"><circle cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${tr}" stroke-width="10"/><circle class="rg" cx="${size/2}" cy="${size/2}" r="${r}" fill="none" stroke="${col}" stroke-width="10" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" data-t="${c*(1-p/100)}" style="transition:stroke-dashoffset 1.4s cubic-bezier(.2,.8,.2,1);transform:rotate(-90deg);transform-origin:center"/><text x="50%" y="54%" text-anchor="middle" fill="${col}" font-size="${size/5.5}" font-weight="800">${lab!==undefined?lab:Math.round(p)+'%'}</text></svg>`}
 const M=()=>S.members[me];
 // ---------- views ----------
 function vHome(){const ms=Object.values(S.members);const rank=ms.map(m=>({m,s:stats(m)})).sort((a,b)=>b.s.pts-a.s.pts);const fl=rank.reduce((t,x)=>t+Math.max(0,x.s.lost),0);
  let h=`<div class="card hero"><h1>💪 FitFamily</h1><div class="q" id="quote">“${Q[qi%Q.length]}”</div><div class="mu" style="margin-top:6px">Let’s change our family together</div></div>`;
  if(!ms.length)return h+`<div class="card"><h2>Welcome! 👋</h2><p>Start by adding yourself and each family member. It takes 1 minute each.</p>${isAdmin?`<button onclick="editM()">➕ Add first member</button>`:'<p class="mu">Ask the family admin to add you.</p>'}</div>`;
  h+=`<div class="card"><div class="row sp"><div><div class="mu">Family total weight lost</div><div class="big" style="color:var(--pr)">${fl.toFixed(1)} kg</div></div><div style="font-size:44px">🏅</div></div></div>`;
- h+=`<h2>Who are you? Tap your photo</h2><div class="grid">`+rank.map(({m,s},i)=>`<div class="card mem" style="animation-delay:${i*.08}s" onclick="pick('${m.id}')"><div class="av">${m.e}</div><h3>${m.name}${m.id===me?' ✓':''}</h3><div class="mu">${i===0?'👑 ':''}${s.pts} points · 🔥${s.st} day${s.st==1?'':'s'}</div><div class="bar" style="margin:8px 0"><i data-w="${s.pr}"></i></div><span class="pill ${s.cat[1]}">BMI ${s.b.toFixed(1)} · ${s.cat[0]}</span></div>`).join('')+`</div>`;
+ h+=`<h2>Who are you? Tap your photo</h2><div class="grid">`+rank.map(({m,s},i)=>`<div class="card mem" style="animation-delay:${i*.08}s" onclick="pick('${m.id}')"><div class="av">${m.e}</div><h3>${m.name}${m.id===me?' ✓':''}</h3><div class="mu">${i===0?'👑 ':''}${s.pts} points · 🔥${s.st} day${s.st==1?'':'s'}</div><div class="mu">${s.G[0]} ${s.G[1]}</div><div class="bar" style="margin:8px 0"><i data-w="${s.pr}"></i></div><span class="pill ${s.cat[1]}">BMI ${s.b.toFixed(1)} · ${s.cat[0]}</span></div>`).join('')+`</div>`;
  if(isAdmin)h+=`<div class="card"><h3>👑 Admin panel</h3><p class="mu">Add, edit or remove members. Others can view everyone’s progress.</p><div class="row"><button onclick="editM()">➕ Add member</button>${me&&M()?`<button class="g" onclick="editM('${me}')">✏️ Edit ${M().name}</button>`:''}</div>${shared?'<p class="mu">Family code: <b>'+fam+'</b>. Give this code to everyone so all phones sync.</p>':'<p class="mu">Offline mode: data is only on this phone.</p>'}</div>`;
  return h}
-function vToday(){const m=M();if(!m)return needMe();const s=stats(m),l=getLog(m.id,today()),t=tot(l);
- return`<div class="card hero"><div class="row sp"><div><h1>${m.e} Hi ${m.name}!</h1><div class="mu">Goal: ${m.w0} → ${m.gw} kg · ${s.weeks?`about ${s.weeks} weeks`:'goal reached! 🎉'}</div><div style="margin-top:8px">🔥 ${s.st} day streak</div></div>${ring(s.pr)}</div></div>
- <div class="card"><h3>⚖️ Today’s weight</h3><div class="row" style="margin-top:8px"><input id="wt" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="${l.w||''}" style="flex:1"><button onclick="saveW()">Save</button></div><div class="mu">Best done in the morning, after the toilet, before food.</div></div>
+function mac(n,v,t,u,c){return`<div style="text-align:center">${ring(v/t*100,92,Math.round(v)+u,c,'rgba(130,140,170,.25)')}<div class="mu">${n} / ${t}${u}</div></div>`}
+function gamePlan(m,s,l,t){const rp=s.pro-t.p,h=new Date().getHours();
+ if(!l.meals.length)return`Start with a protein-rich breakfast. Today’s targets: ${s.cal} kcal and ${s.pro} g protein. Tap Fuel and create an AI meal plan.`;
+ if(rp>15&&h>=15)return`You still need ${Math.round(rp)} g protein. Add paneer, dal, curd or soya chunks. Open Fuel for the best picks.`;
+ if(!l.ex.length)return`Meals are on track. Next up: ${sess(m).name.toLowerCase()}. Even a short session counts.`;
+ if((l.water||0)<6)return'Great work! Finish strong with water. Aim for 8 glasses.';
+ return'Excellent day! Sleep 7–8 hours so your body can recover and grow.'}
+function vToday(){const m=M();if(!m)return needMe();const s=stats(m),l=getLog(m.id,today()),t=tot(l),se=sess(m),G=s.G,left=Math.round(s.cal-t.cal),hr=new Date().getHours();
+ return`<div class="card hero"><div class="mu">${hr<12?'Good morning':hr<17?'Good afternoon':'Good evening'} ${G[0]}</div><h1>${m.name}, let’s go!</h1><div class="row sp" style="margin-top:10px"><div><div class="big"><span data-n="${Math.abs(left)}">${Math.abs(left)}</span></div><div class="mu">kcal ${left>=0?'left today':'over today'}</div><div class="pill" style="background:rgba(255,255,255,.24);margin-top:10px">${G[0]} ${G[1]} · 🔥 ${s.st} day streak</div></div>${ring(t.cal/s.cal*100,132)}</div></div>
+ <div class="card"><div class="grid" style="grid-template-columns:repeat(3,1fr);gap:6px">${mac('Protein',t.p,s.pro,'g','#7c5cff')}${mac('Carbs',t.c,s.carb,'g','#22d3ee')}${mac('Fat',t.f,s.fat,'g','#ff7a45')}</div></div>
+ <div class="card"><div class="row sp"><h3>🏋️ ${se.name}</h3><span class="pill ${se.items.length&&l.ex.length>=se.items.length?'ok':''}">${l.ex.length}/${se.items.length}</span></div><p class="mu">${se.items.length?se.items.map(x=>x.n).join(' · '):'Recovery day. Stretch, walk and sleep well.'}</p>${se.items.length?'<button onclick="startWk()">▶ Start workout</button>':''}</div>
+ <div class="card"><h3>🤖 AI game plan</h3><p>${gamePlan(m,s,l,t)}</p><button class="g" onclick="go('coach')">Open coach</button></div>
+ <div class="card"><h3>⚖️ Today’s weight</h3><div class="row" style="margin-top:8px"><input id="wt" type="number" step="0.1" inputmode="decimal" placeholder="kg" value="${l.w||''}" style="flex:1"><button onclick="saveW()">Save</button></div><div class="mu">Best in the morning, before food.</div></div>
  <div class="card"><h3>💧 Water: ${l.water||0} / 8 glasses</h3><div class="bar" style="margin:10px 0"><i data-w="${Math.min(100,(l.water||0)/8*100)}"></i></div><div class="row"><button onclick="water(1)">🥛 +1 glass</button><button class="g" onclick="water(-1)">−1</button></div></div>
- <div class="card"><h3>🍽️ Food today</h3><div class="row sp" style="margin:8px 0"><span>${Math.round(t.cal)} / ${s.cal} kcal</span><span>Protein ${Math.round(t.p)} / ${s.pro} g</span></div><div class="bar"><i data-w="${Math.min(100,t.cal/s.cal*100)}"></i></div><button style="margin-top:10px" onclick="go('food')">➕ Add food</button></div>
- <div class="card"><h3>🏋️ Workout</h3><p class="mu">${l.ex.length} of ${plan(m).p.length} done today</p><button onclick="go('work')">Start workout</button></div>
- <div class="card"><h3>📊 BMI</h3><div class="big">${s.b.toFixed(1)} <span class="pill ${s.cat[1]}" style="font-size:16px">${s.cat[0]}</span></div><p class="mu">Healthy weight for your height (${m.h} cm): ${s.lo}–${s.hi} kg. India (Asian) BMI range: 18.5–22.9 is healthy.</p></div>`}
+ <div class="card"><div class="row sp"><h3>⭐ Level ${s.lv}</h3><span class="mu">${s.pts} / ${s.nx} XP</span></div><div class="bar" style="margin-top:8px"><i data-w="${(s.pts-s.pv)/(s.nx-s.pv)*100}"></i></div></div>`}
 function needMe(){return`<div class="card"><h2>Please choose who you are</h2><button onclick="go('home')">Go to family</button></div>`}
+const mk=(f,q)=>({n:f[0],q,cal:f[2]*q,p:f[3]*q,c:f[4]*q,f:f[5]*q,junk:f[6]||0});
+const TPL={B:[[['Besan chilla',2],['Curd (dahi)',1],['Banana',1]],[['Oats',1.5],['Milk',1],['Almonds',1]],[['Poha',1],['Peanuts',.5],['Milk',1]],[['Idli',2],['Dal (cooked)',1]],[['Moong sprouts',1.5],['Roti (phulka)',2],['Curd (dahi)',1]]],
+L:[[['Roti (phulka)',3],['Dal (cooked)',1.5],['Mixed sabzi',1],['Salad',1],['Curd (dahi)',1]],[['Brown rice',1],['Rajma',1],['Salad',1],['Buttermilk (chaas)',1]],[['Roti (phulka)',2],['Paneer',1],['Mixed sabzi',1],['Salad',1]],[['Brown rice',1],['Chana boiled',1.5],['Mixed sabzi',1],['Curd (dahi)',1]]],
+S:[[['Apple',1],['Almonds',1]],[['Soya chunks',1],['Buttermilk (chaas)',1]],[['Moong sprouts',1],['Banana',1]],[['Peanut butter',1],['Banana',1]]],
+D:[[['Roti (phulka)',2],['Dal (cooked)',1],['Paneer',.8],['Salad',1]],[['Tofu',1.5],['Roti (phulka)',2],['Mixed sabzi',1]],[['Soya chunks',1.5],['Brown rice',.75],['Mixed sabzi',1],['Salad',1]],[['Besan chilla',2],['Curd (dahi)',1],['Mixed sabzi',1]]]};
+let PLAN=null,fq2=1;
+const FD=n=>FOODS.find(z=>z[0]===n);
+function genPlan(){const s=stats(M());PLAN=[['Breakfast','B',.25],['Lunch','L',.35],['Snack','S',.12],['Dinner','D',.28]].map(([n,k,p])=>{const T=TPL[k][Math.floor(Math.random()*TPL[k].length)],base=T.reduce((x,[f,q])=>x+FD(f)[2]*q,0),sc=Math.max(.6,Math.min(1.8,s.cal*p/base));return{n,items:T.map(([f,q])=>[f,Math.max(.25,Math.round(q*sc*4)/4)])}});
+ const pr=()=>PLAN.reduce((t,x)=>t+x.items.reduce((u,[f,q])=>u+FD(f)[3]*q,0),0);let g=0;while(pr()<s.pro*.9&&g<3){const ad=['Soya chunks','Curd (dahi)','Paneer'][g++];PLAN[2].items.push([ad,ad==='Paneer'?.5:1])}draw('keep')}
+function planHtml(){let tp=0,tc=0;const h=PLAN.map(x=>`<h3 style="margin-top:14px">${x.n}</h3>`+x.items.map(([f,q])=>{const z=FD(f);tp+=z[3]*q;tc+=z[2]*q;return`<div class="fi"><span>${f} <span class="mu">× ${q}</span></span><span class="mu">${Math.round(z[2]*q)} kcal</span></div>`}).join('')).join('');return h+`<p><b>Total ≈ ${Math.round(tc)} kcal · ${Math.round(tp)} g protein</b></p><div class="row"><button onclick="addPlan()">➕ Add all to today</button><button class="g" onclick="genPlan()">🔄 New plan</button></div>`}
+function addPlan(){const l=getLog(me,today());PLAN.forEach(x=>x.items.forEach(([f,q])=>l.meals.push(mk(FD(f),q))));saveLog(l);confetti();toast('Plan added to today ✓');PLAN=null;draw('keep')}
+function custom(){const n=prompt('Food name'),c=+prompt('Calories'),p=+prompt('Protein (g)'),cb=+prompt('Carbs (g)'),f=+prompt('Fat (g)');if(!n||!c)return;FOODS.push([n,'1 serving',c,p||0,cb||0,f||0]);const x=JSON.parse(LS.get('ff_cf')||'[]');x.push(FOODS[FOODS.length-1]);LS.set('ff_cf',JSON.stringify(x));draw('keep')}
+function fixMacros(s,t){if(!t.cal)return'';const rp=s.pro-t.p,rc=s.cal-t.cal;
+ if(rc<-100&&s.G[2]<=0)return`<div class="card"><h3>🤖 Over target</h3><p>You are ${Math.round(-rc)} kcal over. Keep the next meal light: salad, dal and buttermilk, and take a 15 minute walk.</p></div>`;
+ if(rp<10)return`<div class="card"><h3>🤖 Protein target hit ✓</h3><p>Excellent! Your muscles will thank you.</p></div>`;
+ const c=FOODS.filter(f=>!f[6]&&f[3]>=5&&f[2]<=Math.max(rc,120)+60).sort((a,b)=>b[3]/b[2]-a[3]/a[2]).slice(0,4);
+ return`<div class="card"><h3>🤖 Fix my protein</h3><p class="mu">You need ${Math.round(rp)} g more. Best picks for your calories:</p>${c.map(f=>`<div class="fi"><span><b>${f[0]}</b> <span class="mu">${f[1]} · +${f[3]} g · ${f[2]} kcal</span></span><button onclick="addMeal('${f[0]}')">+</button></div>`).join('')}</div>`}
 function vFood(){const m=M();if(!m)return needMe();const l=getLog(m.id,today()),t=tot(l),s=stats(m);
  const cats=[['all','All'],['pro','💪 High protein'],['junk','🚫 Junk']];
- const list=FOODS.filter(f=>f[0].toLowerCase().includes(foodQ.toLowerCase())&&(foodCat==='all'||(foodCat==='junk'?f[6]:HIPRO.includes(f[0]))));
- return`<h1>🍽️ Food</h1><div class="card"><div class="grid"><div><div class="mu">Calories</div><b>${Math.round(t.cal)}</b>/${s.cal}</div><div><div class="mu">Protein</div><b>${Math.round(t.p)}</b>/${s.pro} g</div><div><div class="mu">Carbs</div><b>${Math.round(t.c)}</b> g</div><div><div class="mu">Fat</div><b>${Math.round(t.f)}</b> g</div></div></div>
+ const list=FOODS.filter(f=>f[0].toLowerCase().includes(foodQ.toLowerCase())&&(foodCat==='all'||(foodCat==='junk'?f[6]:f[3]>=6)));
+ return`<h1>🥗 Fuel</h1><div class="card hero"><div class="mu">${s.G[0]} ${s.G[1]} target</div><div class="big">${s.cal} kcal</div><div class="mu">Protein ${s.pro} g · Carbs ${s.carb} g · Fat ${s.fat} g</div><div class="bar" style="margin-top:12px;background:rgba(255,255,255,.3)"><i data-w="${Math.min(100,t.cal/s.cal*100)}" style="background:#fff"></i></div><div class="mu" style="margin-top:6px">Eaten ${Math.round(t.cal)} · P ${Math.round(t.p)} · C ${Math.round(t.c)} · F ${Math.round(t.f)}</div></div>
+ ${fixMacros(s,t)}
+ <div class="card"><h3>✨ AI meal plan</h3><p class="mu">A full vegetarian day built for your goal.</p>${PLAN?planHtml():'<button onclick="genPlan()">Create my plan</button>'}</div>
  ${l.meals.length?`<div class="card"><h3>Eaten today</h3>${l.meals.map((x,i)=>`<div class="fi"><span>${x.n} ×${x.q}<br><span class="mu">${Math.round(x.cal)} kcal · P ${x.p.toFixed(0)} · C ${x.c.toFixed(0)}</span></span><button class="g" onclick="delMeal(${i})">✕</button></div>`).join('')}</div>`:''}
- <div class="card"><h3>🥗 Vegetarian food list</h3><input placeholder="🔍 Search food" value="${foodQ}" oninput="foodQ=this.value;draw('keep')" id="fq" style="margin:8px 0"><div class="row scroll" style="flex-wrap:nowrap;margin-bottom:6px">${cats.map(c=>`<button class="chip ${foodCat===c[0]?'on':''}" onclick="foodCat='${c[0]}';draw()">${c[1]}</button>`).join('')}</div>
- ${list.map(f=>`<div class="fi"><span>${f[6]?'🚫 ':''}<b>${f[0]}</b> <span class="mu">(${f[1]})</span><br><span class="mu">${f[2]} kcal · P ${f[3]}g · C ${f[4]}g · F ${f[5]}g</span></span><button onclick="addMeal('${f[0]}')">+</button></div>`).join('')||'<p class="mu">Nothing found</p>'}</div>`}
-function vWork(){const m=M();if(!m)return needMe();const{b,p}=plan(m),l=getLog(m.id,today()),done=l.ex.length,wd=new Date().getDay();
- const lab={kid:'Kids fun plan',young:'Active plan',mid:'Gentle strength plan',senior:'Safe and easy plan'}[b];
- return`<h1>🏋️ Workout</h1><div class="card hero"><h3>${lab} for ${m.name}</h3><div class="mu">Age ${m.age} · ${m.sex==='F'?'Women':'Men'} · Today: ${WEEK[wd]}</div><div class="bar" style="margin-top:10px;background:rgba(255,255,255,.3)"><i data-w="${done/p.length*100}" style="background:#fff"></i></div></div>
- ${p.map((e,i)=>`<div class="ex ${l.ex.includes(i)?'d':''}" onclick="tick(${i})"><div class="ck">✓</div><div><div class="t"><b>${e[0]}</b> — ${e[1]}</div><div class="mu">${e[2]}</div></div></div>`).join('')}
- <div class="card mu">⚠️ Warm up first. Stop if you feel pain, dizziness or chest discomfort. ${+m.age>=50?'Please check with your doctor before starting a new exercise plan.':''}</div>`}
+ <div class="card"><h3>🥗 Food list</h3><input placeholder="🔍 Search food" value="${foodQ}" oninput="foodQ=this.value;draw('keep')" id="fq" style="margin:8px 0"><div class="row scroll" style="flex-wrap:nowrap;margin-bottom:6px">${cats.map(c=>`<button class="chip ${foodCat===c[0]?'on':''}" onclick="foodCat='${c[0]}';draw()">${c[1]}</button>`).join('')}${[.5,1,1.5,2].map(q=>`<button class="chip ${fq2===q?'on':''}" onclick="fq2=${q};draw('keep')">×${q}</button>`).join('')}</div>
+ ${list.map(f=>`<div class="fi"><span>${f[6]?'🚫 ':''}<b>${f[0]}</b> <span class="mu">(${f[1]})</span><br><span class="mu">${f[2]} kcal · P ${f[3]}g · C ${f[4]}g · F ${f[5]}g</span></span><button onclick="addMeal('${f[0]}')">+</button></div>`).join('')||'<p class="mu">Nothing found</p>'}<button class="g" style="margin-top:12px" onclick="custom()">➕ Add my own food</button></div>`}
+function vWork(){const m=M();if(!m)return needMe();const s=stats(m),se=sess(m),l=getLog(m.id,today()),wd=new Date().getDay(),wk=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+ return`<h1>🏋️ Train</h1><div class="card hero"><div class="mu">Today · ${s.G[0]} ${s.G[1]}</div><h1>${se.name}</h1><div class="mu">${se.items.length} exercises · rest ${se.rest}s between sets</div>${se.items.length?'<button class="bg" style="margin-top:12px" onclick="startWk()">▶ Start guided workout</button>':''}</div>
+ ${se.items.map((e,i)=>`<div class="ex ${l.ex.includes(i)?'d':''}"><div class="ck">✓</div><div><div class="t"><b>${e.n}</b></div><div class="mu">${e.rx}</div></div></div>`).join('')}
+ <div class="card"><h3>📆 This week</h3><div class="row" style="margin-top:8px">${[1,2,3,4,5,6,0].map(d=>`<span class="pill ${d===wd?'ok':''}">${wk[d]} · ${sess(m,d).name}</span>`).join('')}</div></div>
+ <div class="card"><h3>${s.G[0]} About your goal</h3><p class="mu">${GT[s.gk]}</p><p class="mu">⚠️ Warm up first. Stop if you feel pain, dizziness or chest discomfort.${+m.age>=50?' Please check with your doctor before starting a new plan.':''}</p></div>`}
 function chartSvg(m){const W=stats(m).W.slice(-30);if(W.length<2)return'<p class="mu">Log weight on 2 or more days to see your graph 📈</p>';const v=W.map(x=>x.w),mn=Math.min(...v,+m.gw)-1,mx=Math.max(...v)+1,w=320,h=140;const pts=W.map((x,i)=>[10+i*(w-20)/(W.length-1),h-10-(x.w-mn)/(mx-mn)*(h-20)]);const gy=h-10-(m.gw-mn)/(mx-mn)*(h-20);
  return`<svg viewBox="0 0 ${w} ${h}" style="width:100%"><line x1="0" x2="${w}" y1="${gy}" y2="${gy}" stroke="#f97316" stroke-dasharray="5 4"/><text x="${w-4}" y="${gy-4}" text-anchor="end" font-size="10" fill="#f97316">goal ${m.gw}</text><polyline points="${pts.map(p=>p.join(',')).join(' ')}" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" pathLength="1" style="stroke-dasharray:1;stroke-dashoffset:1;animation:dr 1.6s forwards"/>${pts.map(p=>`<circle cx="${p[0]}" cy="${p[1]}" r="3.5" fill="#16a34a"/>`).join('')}</svg><style>@keyframes dr{to{stroke-dashoffset:0}}</style>`}
 function vProg(){const ms=Object.values(S.members);if(!ms.length)return needMe();const v=S.members[prog]||M()||ms[0];prog=v.id;const s=stats(v);
  return`<h1>📈 Progress</h1><div class="row scroll" style="flex-wrap:nowrap">${ms.map(m=>`<button class="chip ${m.id===v.id?'on':''}" onclick="prog='${m.id}';draw()">${m.e} ${m.name}</button>`).join('')}</div>
- <div class="card"><div class="grid"><div><div class="mu">Start</div><div class="big">${v.w0}</div></div><div><div class="mu">Now</div><div class="big">${s.cur}</div></div><div><div class="mu">Goal</div><div class="big">${v.gw}</div></div><div><div class="mu">Lost</div><div class="big" style="color:var(--pr)">${s.lost.toFixed(1)}</div></div></div><div class="bar" style="margin-top:14px"><i data-w="${s.pr}"></i></div><p class="mu">${Math.round(s.pr)}% of goal · BMI ${s.b.toFixed(1)} (${s.cat[0]})</p></div>
+ <div class="card"><div class="grid"><div><div class="mu">Start</div><div class="big">${v.w0}</div></div><div><div class="mu">Now</div><div class="big">${s.cur}</div></div><div><div class="mu">Goal</div><div class="big">${v.gw}</div></div><div><div class="mu">Progress</div><div class="big" style="color:var(--pr)">${s.lost.toFixed(1)}</div></div></div><div class="bar" style="margin-top:14px"><i data-w="${s.pr}"></i></div><p class="mu">${Math.round(s.pr)}% of goal · BMI ${s.b.toFixed(1)} (${s.cat[0]})</p></div>
  <div class="card"><h3>Weight (last 30 days)</h3>${chartSvg(v)}</div>
  <div class="card"><h3>🏆 Family leaderboard</h3>${ms.map(m=>({m,s:stats(m)})).sort((a,b)=>b.s.pts-a.s.pts).map((x,i)=>`<div class="fi"><span>${['🥇','🥈','🥉'][i]||i+1+'.'} ${x.m.e} ${x.m.name}</span><b>${x.s.pts} pts</b></div>`).join('')}<p class="mu">Points: weight lost, daily logging, streaks and workouts.</p></div>
- <div class="card"><h3>📋 Overall family analysis</h3>${famAnalysis()}</div>`}
+ <div class="card"><h3>📋 Overall family analysis</h3>${famAnalysis()}</div>${insights(v,s)}`}
 let prog='';
 function famAnalysis(){const ms=Object.values(S.members),st=ms.map(m=>stats(m));const need=st.filter(s=>!s.kid&&s.b>=23).length;const tl=st.reduce((t,s)=>t+Math.max(0,s.lost),0);const act=st.filter(s=>s.st>=3).length;
  return`<p>👨‍👩‍👧 ${ms.length} members · ${need} need weight loss · ${tl.toFixed(1)} kg lost together.</p><p>🔥 ${act} of ${ms.length} members have a 3+ day streak.</p><p>${need?'Family goal: cook one healthy meal together, and take an evening family walk of 20 minutes.':'Great! Keep the healthy habits going together.'}</p>`}
 // ---------- AI coach (built in, rule based, no internet) ----------
-function coach(m){const s=stats(m),l=getLog(m.id,today()),t=tot(l),T=[];const a=+m.age;
- if(s.kid)T.push('🧒 For children, we focus on healthy food and play, not weight loss. Please talk to your child’s doctor for a plan.');
- else if(s.b>=25)T.push(`Your BMI is ${s.b.toFixed(1)}. Aim to lose 0.5 kg per week; that is safe and lasts. Reach ${s.lo+3}–${s.hi} kg step by step.`);
- else if(s.b>=23)T.push(`You are slightly above the ideal range. Losing ${Math.max(1,Math.round(s.cur-s.hi))} kg gets you to a healthy BMI.`);
- else if(s.b<18.5)T.push('Your BMI is low. Eat more protein and healthy calories; do not diet.');
- else T.push('Your BMI is in the healthy range. Focus on strength and stamina!');
- const W=s.W.slice(-14);if(W.length>=4){const d=W[W.length-1].w-W[0].w;T.push(d<-.3?`📉 Great trend! You lost ${(-d).toFixed(1)} kg recently. Keep going.`:d>.3?'📈 Weight went up lately. Check sweets, fried food and evening snacks. Don’t worry, it can reverse quickly.':'➡️ Weight is steady. Add 10 more minutes of walking daily to restart progress.')}else T.push('Log your weight daily for a week and I can analyse your trend.');
- if(l.meals.length){T.push(t.p<s.pro*.6?`🥜 Protein is low today (${Math.round(t.p)}/${s.pro} g). Add dal, paneer, curd, soya chunks or sprouts.`:'💪 Protein looks good today!');
-  const j=l.meals.filter(x=>x.junk).length;if(j)T.push(`🚫 ${j} junk item${j>1?'s':''} today. Swap with fruit or roasted chana tomorrow.`);
-  if(t.cal>s.cal)T.push('You are over your calorie target today. Make the next meal a light salad and dal.')}
- else T.push('📝 Log what you eat today. Writing it down alone improves results.');
+function week(m,s){let d=0,p=0,w=0,h=0;for(let i=0;i<7;i++){const l=S.logs[m.id+'_'+day(i)];if(!l)continue;if(l.w||(l.meals||[]).length||(l.ex||[]).length)d++;if(tot(l).p>=s.pro*.9)p++;if((l.ex||[]).length)w++;if((l.water||0)>=6)h++}const sc=Math.round((d*3+p*3+w*2.5+h*1.5)/70*100);return{d,p,w,h,sc,g:sc>=85?'A':sc>=70?'B':sc>=55?'C':sc>=40?'D':'F'}}
+function insights(m,s){const wk=week(m,s),B=[[s.st>=3,'🔥 3-day streak'],[s.st>=7,'⚡ 7-day streak'],[s.st>=30,'👑 30-day streak'],[s.lost>=1,'🎯 First kg'],[s.lost>=5,'🏆 5 kg'],[s.tw>=10,'💪 10 exercises'],[s.tw>=50,'🦾 50 exercises'],[s.L.length>=14,'📝 14 logs']];
+ return`<div class="card"><h3>🧠 AI insights for ${m.name}</h3><p>Weekly grade: <b style="font-size:30px">${wk.g}</b> <span class="mu">(${wk.sc}/100)</span></p><p class="mu">Protein goal hit ${wk.p}/7 days · ${wk.w} workouts · water 6+ glasses ${wk.h}/7 days</p><p>Estimated body fat: <b>${s.bf.toFixed(0)}%</b> <span class="mu">(rough estimate)</span></p><p>${s.real?`Your real maintenance: <b>${s.real} kcal</b>, learned from your food and weight logs.`:'Log weight and food for 7 days to unlock your real maintenance calories.'}</p></div><div class="card"><h3>🏅 Badges · Level ${s.lv}</h3><div class="row" style="margin-top:8px">${B.map(b=>`<span class="pill ${b[0]?'ok':''}" style="opacity:${b[0]?1:.45}">${b[1]}</span>`).join('')}</div></div>`}
+function coach(m){const s=stats(m),l=getLog(m.id,today()),t=tot(l),T=[],a=+m.age,wk=week(m,s);
+ T.push(`${s.G[0]} Goal: <b>${s.G[1]}</b>. ${GT[s.gk]} Daily target: ${s.cal} kcal, ${s.pro} g protein.`);
+ if(s.kid)T.push('🧒 For children we focus on healthy food and play, not weight loss. Please talk to your child’s doctor.');
+ else if(s.b>=25&&s.G[2]>0)T.push('⚠️ Your BMI is high for a bulk. A Cut or Recomp may suit you better. Change it in Family > Edit.');
+ else if(s.b<18.5&&s.G[2]<=0)T.push('Your BMI is low. A Lean bulk may suit you better. I kept your calories at maintenance.');
+ const W=s.W.filter(x=>x.date>=day(14));
+ if(W.length>=4){const d=(W[W.length-1].w-W[0].w)*s.dir;T.push(d>.3?`📈 You moved ${d.toFixed(1)} kg toward your goal in 2 weeks. Keep going!`:d<-.3?'⚠️ Your weight is moving away from your goal. Review portions and consistency this week.':'➡️ Weight is steady for 2 weeks. '+(s.dir<0?'Plateau breaker: walk 10 minutes more daily and trim one snack (about 150 kcal).':'Add 150 kcal (banana with peanut butter) and push harder in training.'))}else T.push('Log your weight daily for a week and I will analyse your trend.');
+ if(s.real)T.push(`🧠 Your real maintenance is about ${s.real} kcal. Your target is ${s.cal}.`);
+ T.push(`📋 This week: grade <b>${wk.g}</b>. ${wk.d} days logged, protein hit ${wk.p} days, ${wk.w} workouts.`);
+ if(l.meals.length){T.push(t.p<s.pro*.6?`🥜 Protein is low today (${Math.round(t.p)}/${s.pro} g). Add dal, paneer, curd, soya chunks or sprouts.`:'💪 Protein looks good today!');const j=l.meals.filter(x=>x.junk).length;if(j)T.push(`🚫 ${j} junk item${j>1?'s':''} today. Swap with fruit or roasted chana next time.`);if(t.cal>s.cal*1.1&&s.G[2]<=0)T.push('You are over calories today. Make the next meal a light salad and dal.')}else T.push('📝 Log your meals today. Tracking alone improves results.');
  if((l.water||0)<5)T.push('💧 Drink more water. A glass before each meal reduces hunger.');
- if(!l.ex.length)T.push('🏋️ You have not exercised today. Even 10 minutes of walking counts!');
- if(a>=60)T.push('🧓 Protein and gentle strength exercises protect muscles and bones. Always keep a chair nearby for support.');
- if(m.sex==='F'&&a>=40)T.push('Strength work and calcium (milk, curd, ragi) help protect bones.');
- if(m.sex==='M'&&a>=40)T.push('Reduce salt and fried foods to protect your heart. Walk after dinner.');
+ if(!l.ex.length)T.push('🏋️ No workout yet today. Even 10 minutes counts!');
+ if(a>=60)T.push('🧓 Protein and gentle strength work protect your muscles and bones. Keep a chair nearby for support.');
+ if(m.sex==='F'&&a>=40)T.push('Strength work plus calcium (milk, curd, ragi) helps protect your bones.');
+ if(m.sex==='M'&&a>=40)T.push('Cut salt and fried food to protect your heart. A 10 minute walk after dinner helps.');
  return T}
 const KB=[[/protein/,'Vegetarian protein: soya chunks (16 g/30 g), paneer (18 g/100 g), dal, rajma, chana, tofu, curd, sprouts, milk. Add one protein item to every meal.'],[/rice|roti|chapati|carb/,'Don’t quit rice or roti. Eat smaller portions: 2 rotis or 1 cup rice, with double dal and sabzi. Choose brown rice or millet when you can.'],[/sweet|mithai|sugar|chocolate|craving/,'Cravings are normal. Try a fruit, a few dates or a small piece of jaggery after meals. Keep sweets for weekends only.'],[/plateau|stuck|not losing|stopped/,'Plateaus are normal. Sleep 7–8 hours, increase walking by 10 minutes, cut evening snacks, and be patient for 2 weeks.'],[/motivat|lazy|tired|give up|bored/,'Remember why you started: a healthy family. '+'Do just 5 minutes today. Starting is the hardest part, and the family is cheering for you!'],[/water/,'Aim for 8 glasses daily. Water before meals reduces hunger.'],[/sleep/,'Poor sleep increases hunger. Aim for 7–8 hours and avoid phone 30 minutes before bed.'],[/breakfast/,'Healthy breakfast: besan chilla, moong sprouts, oats, idli with sambar, or poha with peanuts plus a glass of milk.'],[/snack|hungry/,'Smart snacks: roasted chana, fruit, buttermilk, 10 almonds, or a bowl of sprouts.'],[/dinner/,'Keep dinner light and early: dal, 1–2 roti, sabzi and salad. Eat 2–3 hours before sleep, then walk 10 minutes.'],[/bmi/,'BMI = weight (kg) ÷ height (m)². For Indians: 18.5–22.9 is healthy, 23–24.9 overweight, 25 or above obese.'],[/walk|exercise|workout/,'Start with a 20 minute daily walk. Then add the exercises in the Workout tab. Consistency matters more than intensity.']];
+KB.unshift([/protein/,(m,s)=>`Your protein target is ${s.pro} g per day. Vegetarian sources: soya chunks (16 g per 30 g), paneer, dal, rajma, chana, tofu, curd, sprouts, milk and whey. Add one to every meal.`],[/calorie|kcal/,(m,s)=>`Your daily target is ${s.cal} kcal for ${s.G[1]}: protein ${s.pro} g, carbs ${s.carb} g, fat ${s.fat} g.`],[/bulk|gain|muscle|mass|bigger/,(m,s)=>`To build muscle: eat ${s.cal} kcal (a small surplus), ${s.pro} g protein, lift 4 to 5 days with progressive overload (add weight or reps weekly), and sleep 8 hours. Expect 0.25 to 0.4 kg per week.`],[/cut|shred|lean|fat loss|lose fat|belly/,(m,s)=>`To lose fat and keep muscle: eat ${s.cal} kcal, ${s.pro} g protein, lift heavy 3 days, walk daily. Aim for 0.5 kg per week. You cannot spot-reduce belly fat; total fat loss does it.`],[/body fat|bf/,(m,s)=>`Your estimated body fat is about ${s.bf.toFixed(0)}% (rough estimate from BMI, age and gender).`],[/what.*eat|meal plan|menu/,()=>'Open the Fuel tab and tap “Create my plan” for a full vegetarian day made for your goal.'],[/supplement|creatine|whey/,()=>'Food first. Whey protein is a convenient option if you miss your protein target. Please check with a doctor before any supplement, especially if you are over 50 or have a medical condition.']);
 function vCoach(){const m=M();if(!m)return needMe();
  return`<h1>🤖 AI Coach</h1><div class="card hero"><div class="mu">Built in. Works offline. Your data stays on your device.</div><h3>Today’s advice for ${m.name}</h3></div>${coach(m).map((t,i)=>`<div class="card" style="animation-delay:${i*.1}s">${t}</div>`).join('')}
  <div class="card"><h3>Ask the coach</h3><div id="chat">${chat.map(c=>`<div class="chat ${c.u?'me':''}">${c.t}</div>`).join('')}</div><div class="row scroll" style="flex-wrap:nowrap;margin:8px 0">${['protein','sweet cravings','dinner','not losing weight','motivation'].map(x=>`<button class="chip" onclick="ask('${x}')">${x}</button>`).join('')}</div><div class="row"><input id="ci" placeholder="Type your question" style="flex:1"><button onclick="ask()">Send</button></div></div>`}
 // ---------- actions ----------
-function ask(x){const i=$('#ci');const q=(x||i.value).trim();if(!q)return;const hit=KB.find(k=>k[0].test(q.toLowerCase()));chat.push({u:1,t:q},{t:hit?hit[1]:'I can help with protein, food, snacks, dinner, cravings, BMI, water, sleep, exercise, plateaus and motivation. Please ask about one of these.'});draw('keep')}
+function ask(x){const i=$('#ci');const q=(x||i.value).trim();if(!q)return;const hit=KB.find(k=>k[0].test(q.toLowerCase()));chat.push({u:1,t:q},{t:hit?(typeof hit[1]==='function'?hit[1](M(),stats(M())):hit[1]):'I can help with protein, food, snacks, dinner, cravings, BMI, water, sleep, exercise, plateaus and motivation. Please ask about one of these.'});draw('keep')}
 function pick(id){me=id;LS.set('ff_me',id);toast('Welcome, '+S.members[id].name+'! 🎉');go('today')}
-function go(t){tab=t;qi++;draw();scrollTo({top:0,behavior:'smooth'})}
-function saveW(){const v=parseFloat($('#wt').value);if(!v||v<20||v>250)return toast('Please enter a valid weight');const l=getLog(me,today()),first=!l.w;const prev=stats(M()).cur;l.w=v;saveLog(l);if(v<prev){confetti();toast('Down '+(prev-v).toFixed(1)+' kg! Amazing! 🎉')}else toast(Q[Math.floor(Math.random()*Q.length)]);draw('keep')}
+function go(t){tab=t;qi++;const a=$('#app');a.classList.remove('fx');void a.offsetWidth;a.classList.add('fx');setTimeout(()=>a.classList.remove('fx'),1000);vib();draw();scrollTo({top:0,behavior:'smooth'})}
+function saveW(){const v=parseFloat($('#wt').value);if(!v||v<20||v>250)return toast('Please enter a valid weight');const l=getLog(me,today()),first=!l.w;const prev=stats(M()).cur;l.w=v;saveLog(l);if((v-prev)*stats(M()).dir>0){confetti();toast('Right direction! '+Math.abs(v-prev).toFixed(1)+' kg 🎉')}else toast(Q[Math.floor(Math.random()*Q.length)]);draw('keep')}
 function water(n){const l=getLog(me,today());l.water=Math.max(0,(l.water||0)+n);saveLog(l);if(l.water===8){confetti();toast('Water goal done! 💧')}draw('keep')}
-function addMeal(n){const f=FOODS.find(x=>x[0]===n),l=getLog(me,today());l.meals.push({n:f[0],q:1,cal:f[2],p:f[3],c:f[4],f:f[5],junk:f[6]||0});saveLog(l);toast(f[6]?'Added. Try a lighter choice next time 🙂':'Added ✓ '+f[0]);draw('keep')}
+function addMeal(n){const f=FD(n),l=getLog(me,today());l.meals.push(mk(f,fq2));saveLog(l);vib();toast(f[6]?'Added. Try a lighter choice next time 🙂':'Added ✓ '+f[0]);draw('keep')}
 function delMeal(i){const l=getLog(me,today());l.meals.splice(i,1);saveLog(l);draw('keep')}
-function tick(i){const l=getLog(me,today()),k=l.ex.indexOf(i);k<0?l.ex.push(i):l.ex.splice(k,1);saveLog(l);if(l.ex.length===plan(M()).p.length){confetti();toast('Workout complete! You are a champion! 🏆')}draw('keep')}
 const EM=['👨','👩','👴','👵','🧑','👦','👧','🧔','👱‍♀️','🦸'];
 function editM(id){const m=id?S.members[id]:{e:'🙂',sex:'M',age:'',h:'',w0:'',gw:''};
  const d=document.createElement('div');d.className='modal';d.onclick=e=>{if(e.target===d)d.remove()};
  d.innerHTML=`<div><h2>${id?'Edit':'Add'} member</h2><label>Photo / emoji</label><div class="row">${EM.map(e=>`<button class="chip ${e===m.e?'on':''}" onclick="this.parentNode.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));this.classList.add('on');window._e='${e}'" style="font-size:26px">${e}</button>`).join('')}</div>
- <label>Name</label><input id="fn" value="${m.name||''}"><div class="grid"><div><label>Age</label><input id="fa" type="number" inputmode="numeric" value="${m.age}"></div><div><label>Gender</label><select id="fs"><option value="M" ${m.sex==='M'?'selected':''}>Male</option><option value="F" ${m.sex==='F'?'selected':''}>Female</option></select></div><div><label>Height (cm)</label><input id="fh" type="number" inputmode="numeric" value="${m.h}"></div><div><label>Weight now (kg)</label><input id="fw" type="number" step="0.1" inputmode="decimal" value="${m.w0}"></div></div><label>Goal weight (kg)</label><input id="fg" type="number" step="0.1" inputmode="decimal" value="${m.gw}"><p class="mu">Not sure? Leave it empty and we will pick a healthy goal.</p>
+ <label>Name</label><input id="fn" value="${m.name||''}"><div class="grid"><div><label>Age</label><input id="fa" type="number" inputmode="numeric" value="${m.age}"></div><div><label>Gender</label><select id="fs"><option value="M" ${m.sex==='M'?'selected':''}>Male</option><option value="F" ${m.sex==='F'?'selected':''}>Female</option></select></div><div><label>Height (cm)</label><input id="fh" type="number" inputmode="numeric" value="${m.h}"></div><div><label>Weight now (kg)</label><input id="fw" type="number" step="0.1" inputmode="decimal" value="${m.w0}"></div></div><label>Goal weight (kg)</label><input id="fg" type="number" step="0.1" inputmode="decimal" value="${m.gw}"><p class="mu">Not sure? Leave empty and we will pick a goal weight.</p>
+ <label>Main goal</label><select id="fgl">${Object.entries(GOALS).map(([k,v])=>`<option value="${k}" ${(m.goal||'lose')===k?'selected':''}>${v[0]} ${v[1]}</option>`).join('')}</select>
+ <div class="grid"><div><label>Daily activity</label><select id="fac">${[[1.2,'Mostly sitting'],[1.375,'Light'],[1.55,'Active'],[1.725,'Very active']].map(([v,t])=>`<option value="${v}" ${+(m.act||1.375)===v?'selected':''}>${t}</option>`).join('')}</select></div><div><label>Training level</label><select id="flv"><option value="beg">Beginner</option><option value="adv" ${m.lvl==='adv'?'selected':''}>Experienced</option></select></div><div><label>Equipment</label><select id="feq"><option value="b">None (home)</option><option value="d" ${m.eq==='d'?'selected':''}>Dumbbells</option><option value="g" ${m.eq==='g'?'selected':''}>Gym</option></select></div></div>
  <div class="row" style="margin-top:12px"><button onclick="submitM('${id||''}')">Save</button><button class="g" onclick="this.closest('.modal').remove()">Cancel</button>${id?`<button class="r" onclick="if(confirm('Remove this member and all their data?')){delMember('${id}');this.closest('.modal').remove();if(me==='${id}')me=null;draw()}">Delete</button>`:''}</div></div>`;
  window._e=m.e;document.body.appendChild(d)}
 function submitM(id){const g=x=>$('#'+x).value;const n=g('fn').trim(),a=+g('fa'),h=+g('fh'),w=+g('fw');if(!n||!a||!h||!w||h<80||h>230)return toast('Please fill name, age, height and weight');
- let gw=+g('fg');if(!gw)gw=Math.min(w,Math.round(22.9*(h/100)**2));const old=id?S.members[id]:null;
- const m={id:id||'m'+Date.now().toString(36),name:n,age:a,sex:g('fs'),h,w0:old?old.w0:w,gw,e:window._e};if(old&&w!==old.w0&&!logsOf(id).length)m.w0=w;
+ let gw=+g('fg');if(!gw){const G=g('fgl');gw=G==='lean'||G==='bulk'?w+4:G==='lose'||G==='cut'?Math.min(w,Math.round(22.9*(h/100)**2)):w}const old=id?S.members[id]:null;
+ const m={id:id||'m'+Date.now().toString(36),name:n,age:a,sex:g('fs'),h,w0:old?old.w0:w,gw,e:window._e,goal:g('fgl'),act:+g('fac'),lvl:g('flv'),eq:g('feq')};if(old&&w!==old.w0&&!logsOf(id).length)m.w0=w;
  saveMember(m);document.querySelector('.modal').remove();if(!me){me=m.id;LS.set('ff_me',me)}confetti();toast('Saved ✓');draw()}
 // ---------- render ----------
-function draw(keep){const y=scrollY;const a=document.activeElement&&document.activeElement.id;const v=(FB&&!fam)?vSetup():{home:vHome,today:vToday,food:vFood,work:vWork,prog:vProg,coach:vCoach}[tab]();$('#app').innerHTML=v;
- $('#nav').innerHTML=[['home','🏠','Family'],['today','📅','Today'],['food','🥗','Food'],['work','🏋️','Workout'],['prog','📈','Progress'],['coach','🤖','Coach']].map(n=>`<button class="${tab===n[0]?'on':''}" onclick="go('${n[0]}')"><b>${n[1]}</b>${n[2]}</button>`).join('');
- requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.bar i').forEach(e=>e.style.width=(+e.dataset.w||0)+'%');document.querySelectorAll('.rg').forEach(e=>e.style.strokeDashoffset=e.dataset.t)}));
- if(keep){scrollTo(0,y);if(a){const e=document.getElementById(a);if(e){e.focus();if(e.setSelectionRange&&e.type==='search'||a==='fq')e.setSelectionRange(e.value.length,e.value.length)}}}}
+const NAV=[['today','🏠','Home'],['work','🏋️','Train'],['food','🥗','Fuel'],['prog','📈','Progress'],['home','👨‍👩‍👧','Family']];
+function draw(keep){const y=scrollY,a=document.activeElement&&document.activeElement.id;$('#app').innerHTML=(FB&&!fam)?vSetup():{home:vHome,today:vToday,food:vFood,work:vWork,prog:vProg,coach:vCoach}[tab]();
+ const n=$('#nav');if(!n.children.length)n.innerHTML=NAV.map(x=>`<button onclick="go('${x[0]}')"><b>${x[1]}</b>${x[2]}</button>`).join('');
+ const ix=NAV.findIndex(x=>x[0]===tab);n.style.setProperty('--i',Math.max(ix,0));n.style.setProperty('--o',ix<0?0:1);[...n.children].forEach((b,i)=>b.classList.toggle('on',i===ix));
+ const m=M();$('#hd').innerHTML=`<b>💪 FitFamily</b>${m?`<button class="av2" onclick="go('home')">${m.e} ${m.name}</button>`:''}`;$('#fab').style.display=m?'grid':'none';
+ requestAnimationFrame(()=>requestAnimationFrame(()=>{document.querySelectorAll('.bar i[data-w]').forEach(e=>e.style.width=(+e.dataset.w||0)+'%');document.querySelectorAll('.rg').forEach(e=>e.style.strokeDashoffset=e.dataset.t);if($('#app').classList.contains('fx'))document.querySelectorAll('[data-n]').forEach(cnt)}));
+ if(keep){scrollTo(0,y);if(a){const e=document.getElementById(a);if(e){e.focus();if(a==='fq')e.setSelectionRange(e.value.length,e.value.length)}}}}
+function cnt(e){const t=+e.dataset.n,s=performance.now();(function f(n){const k=Math.min(1,(n-s)/900);e.textContent=Math.round(t*(1-Math.pow(1-k,3)));if(k<1)requestAnimationFrame(f)})(s)}
+function vib(){try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}}
+function inj(){const st=document.createElement('style');st.textContent=[...Array(12)].map((_,i)=>`.fx>:nth-child(${i+1}){animation-delay:${i*.05}s}`).join('');document.head.appendChild(st);const a=$('#app');a.classList.add('fx');setTimeout(()=>a.classList.remove('fx'),1000);
+ try{JSON.parse(LS.get('ff_cf')||'[]').forEach(x=>FOODS.push(x))}catch(e){}try{if('serviceWorker' in navigator&&/^http/.test(location.protocol))navigator.serviceWorker.register('sw.js')}catch(e){}}
 async function init(){shared=!!(FB&&fam);isAdmin=!shared||LS.get('ff_admin')==='1';if(!shared){try{const d=LS.get('ff_data');if(d)S=JSON.parse(d)}catch(e){}}
- draw();if(shared){pull();setInterval(pull,8000)}
+ inj();draw();if(shared){pull();setInterval(pull,8000)}
  setInterval(()=>{const q=$('#quote');if(q){qi++;q.style.opacity=0;setTimeout(()=>{q.textContent='“'+Q[qi%Q.length]+'”';q.style.opacity=1},400)}},9000)}
 init();
 </script></body></html>
